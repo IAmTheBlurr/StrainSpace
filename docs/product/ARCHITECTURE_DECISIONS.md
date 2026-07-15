@@ -120,3 +120,18 @@ Evidence:
 **Consequences:** The demonstration is deliberately synthetic and not a balance claim about any external game.
 
 **Evidence:** `fixtures/`, `apps/web/`, integration tests, and the automated fixture/IP scan.
+
+## ADR-009: Relation-specific mathematical type system
+
+**Status:** Accepted
+**Date:** 2026-07-15
+
+**Decision:** Use compact field-specific schema-v1 fixtures and distinct branded runtime quantity types. Separate intrinsic domains from fixture ranges and operator-support ranges. Keep exact canonical rationals authoritative. Model D6 requirements as `2..6 | "impossible"` on the wire and a tagged runtime union. Implement only the static `power-resilience-v1` relation, with exact ratio as its authoritative coordinate, indexed difference as a diagnostic, and logarithmic ratio as an approximate display view.
+
+**Reason:** Shared JavaScript representation does not imply shared mathematics. Relation-specific signatures prevent invalid arithmetic while preserving the research premise that quantities may acquire multiple future roles through explicit operators.
+
+**Alternatives:** Fully tagged JSON quantities, a universal scalar wrapper, generic pair arithmetic, a runtime relation plugin system, or keeping unbranded numbers throughout the engine.
+
+**Consequences:** Valid values outside a clean operator's supported range fail as unsupported computations rather than invalid domain values. Power and resilience retain fixed roles. Exact efficiency replaces floating comparison. Unsupported rule-operator contexts fail explicitly. A temporary legacy fixture adapter is removed before milestone closure.
+
+**Evidence:** `docs/product/MATHEMATICAL_TYPE_SYSTEM.md`, compile-time type tests, exact migration-equivalence oracles, and the geometry-engine property suite.
