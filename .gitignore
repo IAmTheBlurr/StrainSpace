@@ -18,3 +18,5 @@ fixtures/private-provenance/
 *.tsbuildinfo
 .idea/
 .vscode/
+.tmp/
+temp/
