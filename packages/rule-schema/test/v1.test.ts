@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import {
   AttackCountSchema,
@@ -77,8 +77,7 @@ describe("schema v1 mathematical domains", () => {
     ).toThrow();
   });
 
-  it("isolates unversioned input behind a warning legacy adapter", () => {
-    const warning = vi.fn();
+  it("rejects unversioned input after legacy compatibility removal", () => {
     const legacy = {
       factionId: "legacy-force",
       displayName: "Legacy Force",
@@ -113,14 +112,6 @@ describe("schema v1 mathematical domains", () => {
         },
       ],
     };
-    const parsed = parseProxyFactionDocument(legacy, {
-      sourceName: "legacy.json",
-      onLegacyWarning: warning,
-    });
-    expect(warning).toHaveBeenCalledOnce();
-    expect(parsed.entities[0]?.defense.protectionRequirement).toEqual({
-      kind: "impossible",
-    });
-    expect(parsed.entities[0]?.attackProfiles[0]?.count).toBe(7);
+    expect(() => parseProxyFactionDocument(legacy)).toThrow();
   });
 });

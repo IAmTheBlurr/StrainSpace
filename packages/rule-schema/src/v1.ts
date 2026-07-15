@@ -508,183 +508,22 @@ export type ThresholdMapDocumentV1 = z.infer<
   typeof ThresholdMapDocumentV1WireSchema
 >;
 
-type LegacyD6Threshold = 2 | 3 | 4 | 5 | 6 | 7;
-const LegacyD6ThresholdSchema = z.union([
-  z.literal(2),
-  z.literal(3),
-  z.literal(4),
-  z.literal(5),
-  z.literal(6),
-  z.literal(7),
-]);
-
-const LegacyAttackProfileSchema = z
-  .object({
-    id: identifier,
-    displayName,
-    count: positiveSafeInteger,
-    accuracyThreshold: LegacyD6ThresholdSchema,
-    power: positiveSafeInteger,
-    penetration: nonNegativeSafeInteger,
-    damage: positiveSafeInteger,
-    tags: z.array(identifier).default([]),
-    operators: z.array(RuleOperatorRefV1WireSchema).default([]),
-  })
-  .strict();
-
-const LegacyDefenseProfileSchema = z
-  .object({
-    resilience: positiveSafeInteger,
-    protectionThreshold: LegacyD6ThresholdSchema,
-    health: positiveSafeInteger,
-    modelCount: positiveSafeInteger,
-  })
-  .strict();
-
-const LegacyProxyFactionSchema = z
-  .object({
-    factionId: identifier,
-    displayName,
-    description: z.string().trim().min(1).max(300),
-    entities: z
-      .array(
-        z
-          .object({
-            id: identifier,
-            displayName,
-            cost: positiveSafeInteger,
-            mobility: nonNegativeSafeInteger,
-            control: nonNegativeSafeInteger,
-            defense: LegacyDefenseProfileSchema,
-            attackProfiles: z.array(LegacyAttackProfileSchema).min(1),
-            tags: z.array(identifier).default([]),
-          })
-          .strict(),
-      )
-      .min(1),
-    metadata: z.record(z.string(), z.unknown()).optional(),
-  })
-  .strict();
-
-const LegacyCoverageCriterionSchema = z
-  .object({
-    criterionId: identifier,
-    displayName,
-    metric: z.literal("probability-at-least-models-removed"),
-    minimumModelsRemoved: positiveSafeInteger,
-    threshold: z
-      .object({
-        numerator: nonNegativeSafeInteger,
-        denominator: positiveSafeInteger,
-      })
-      .strict(),
-    assumptions,
-  })
-  .strict();
-
-const LegacyCounterProfileDocumentSchema = z.array(
-  z
-    .object({
-      counterProfileId: identifier,
-      displayName,
-      replaces: z
-        .object({
-          factionId: identifier,
-          entityId: identifier,
-          profileId: identifier,
-        })
-        .strict(),
-      profile: LegacyAttackProfileSchema,
-    })
-    .strict(),
-);
-
-export interface LegacyDecodeOptions {
-  readonly sourceName: string;
-  readonly onLegacyWarning?: (message: string) => void;
-}
-
-function warnLegacy(options: LegacyDecodeOptions): void {
-  const message = `${options.sourceName}: unversioned StrainSpace fixture decoded through the temporary legacy adapter.`;
-  if (options.onLegacyWarning === undefined) console.warn(message);
-  else options.onLegacyWarning(message);
-}
-
-function legacyRequirement(value: LegacyD6Threshold): D6RequirementWire {
-  return value === 7 ? "impossible" : value;
-}
-
-export function parseProxyFactionDocument(
-  input: unknown,
-  options: LegacyDecodeOptions,
-): ProxyFactionV1 {
-  if (typeof input === "object" && input !== null && "schemaVersion" in input) {
-    return decodeProxyFactionV1(ProxyFactionDocumentV1WireSchema.parse(input));
-  }
-  const legacy = LegacyProxyFactionSchema.parse(input);
-  warnLegacy(options);
-  return decodeProxyFactionV1({
-    schemaVersion: "1.0.0",
-    ...legacy,
-    entities: legacy.entities.map((entity) => ({
-      ...entity,
-      defense: {
-        resilience: entity.defense.resilience,
-        protectionRequirement: legacyRequirement(
-          entity.defense.protectionThreshold,
-        ),
-        health: entity.defense.health,
-        modelCount: entity.defense.modelCount,
-      },
-      attackProfiles: entity.attackProfiles.map((attack) => ({
-        ...attack,
-        accuracyRequirement: legacyRequirement(attack.accuracyThreshold),
-        accuracyThreshold: undefined,
-      })),
-    })),
-  });
+export function parseProxyFactionDocument(input: unknown): ProxyFactionV1 {
+  return decodeProxyFactionV1(ProxyFactionDocumentV1WireSchema.parse(input));
 }
 
 export function parseCoverageCriterionDocument(
   input: unknown,
-  options: LegacyDecodeOptions,
 ): CoverageCriterionV1 {
-  if (typeof input === "object" && input !== null && "schemaVersion" in input) {
-    return decodeCoverageCriterionV1(
-      CoverageCriterionDocumentV1WireSchema.parse(input),
-    );
-  }
-  const legacy = LegacyCoverageCriterionSchema.parse(input);
-  warnLegacy(options);
-  return decodeCoverageCriterionV1({
-    schemaVersion: "1.0.0",
-    ...legacy,
-    threshold: ProbabilityWireSchema.parse(legacy.threshold),
-  });
+  return decodeCoverageCriterionV1(
+    CoverageCriterionDocumentV1WireSchema.parse(input),
+  );
 }
 
 export function parseCounterProfileDocument(
   input: unknown,
-  options: LegacyDecodeOptions,
 ): CounterProfileDocumentV1 {
-  if (typeof input === "object" && input !== null && "schemaVersion" in input) {
-    return decodeCounterProfileDocumentV1(
-      CounterProfileDocumentV1WireSchema.parse(input),
-    );
-  }
-  const legacy = LegacyCounterProfileDocumentSchema.parse(input);
-  warnLegacy(options);
-  return decodeCounterProfileDocumentV1({
-    schemaVersion: "1.0.0",
-    counterProfiles: legacy.map((counter) => ({
-      ...counter,
-      profile: {
-        ...counter.profile,
-        accuracyRequirement: legacyRequirement(
-          counter.profile.accuracyThreshold,
-        ),
-        accuracyThreshold: undefined,
-      },
-    })),
-  });
+  return decodeCounterProfileDocumentV1(
+    CounterProfileDocumentV1WireSchema.parse(input),
+  );
 }

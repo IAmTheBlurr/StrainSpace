@@ -23,25 +23,17 @@ async function loadJson(path: string): Promise<unknown> {
 
 describe("coverage and absolute holes", () => {
   it("finds the seeded apex hole and closes it with the known counter-profile", async () => {
-    const parsedV1 = {
-      sourceName: "versioned fixture",
-      onLegacyWarning: () => {},
-    };
     const source = parseProxyFactionDocument(
       await loadJson("fixtures/meridian-compact.json"),
-      parsedV1,
     );
     const target = parseProxyFactionDocument(
       await loadJson("fixtures/vesper-array.json"),
-      parsedV1,
     );
     const criterion = parseCoverageCriterionDocument(
       await loadJson("fixtures/coverage-criterion.json"),
-      parsedV1,
     );
     const counterDocument = parseCounterProfileDocument(
       await loadJson("fixtures/counter-profiles.json"),
-      parsedV1,
     );
     const before = buildCoverageMatrixV1(source, target, criterion);
     expect(before.ok).toBe(true);

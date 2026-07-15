@@ -21,44 +21,41 @@ import {
   makeExactRational,
 } from "../src/rational-v1.js";
 
-const faction = parseProxyFactionDocument(
-  {
-    schemaVersion: "1.0.0",
-    factionId: "test-force",
-    displayName: "Test Force",
-    description: "Synthetic clean-engine test fixture.",
-    entities: [
-      {
-        id: "test-entity",
-        displayName: "Test Entity",
-        cost: 100,
-        mobility: 50,
-        control: 0,
-        defense: {
-          resilience: 6,
-          protectionRequirement: 3,
-          health: 3,
-          modelCount: 3,
-        },
-        attackProfiles: [
-          {
-            id: "test-attack",
-            displayName: "Test Attack",
-            count: 4,
-            accuracyRequirement: 3,
-            power: 8,
-            penetration: 2,
-            damage: 2,
-            tags: [],
-            operators: [],
-          },
-        ],
-        tags: [],
+const faction = parseProxyFactionDocument({
+  schemaVersion: "1.0.0",
+  factionId: "test-force",
+  displayName: "Test Force",
+  description: "Synthetic clean-engine test fixture.",
+  entities: [
+    {
+      id: "test-entity",
+      displayName: "Test Entity",
+      cost: 100,
+      mobility: 50,
+      control: 0,
+      defense: {
+        resilience: 6,
+        protectionRequirement: 3,
+        health: 3,
+        modelCount: 3,
       },
-    ],
-  },
-  { sourceName: "inline-v1.json" },
-);
+      attackProfiles: [
+        {
+          id: "test-attack",
+          displayName: "Test Attack",
+          count: 4,
+          accuracyRequirement: 3,
+          power: 8,
+          penetration: 2,
+          damage: 2,
+          tags: [],
+          operators: [],
+        },
+      ],
+      tags: [],
+    },
+  ],
+});
 
 const entity = faction.entities[0];
 if (entity === undefined) throw new Error("Expected test entity.");

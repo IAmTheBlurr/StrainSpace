@@ -24,20 +24,13 @@ export interface FixtureDataset {
 
 export async function loadFixtureDataset(): Promise<FixtureDataset> {
   await Promise.resolve();
-  const parsedV1 = {
-    sourceName: "versioned fixture",
-    onLegacyWarning: () => {},
-  };
-  const counterDocument = parseCounterProfileDocument(
-    counterProfilesJson,
-    parsedV1,
-  );
+  const counterDocument = parseCounterProfileDocument(counterProfilesJson);
   return {
     factions: [
-      parseProxyFactionDocument(meridianJson, parsedV1),
-      parseProxyFactionDocument(vesperJson, parsedV1),
+      parseProxyFactionDocument(meridianJson),
+      parseProxyFactionDocument(vesperJson),
     ],
-    criterion: parseCoverageCriterionDocument(coverageCriterionJson, parsedV1),
+    criterion: parseCoverageCriterionDocument(coverageCriterionJson),
     counterProfiles: counterDocument.counterProfiles,
     thresholdMap: ThresholdMapDocumentV1WireSchema.parse(thresholdMapJson),
   };

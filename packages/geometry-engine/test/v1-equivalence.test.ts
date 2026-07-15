@@ -76,22 +76,17 @@ function compact(value: CoverageResultV1): OracleRow {
 
 describe("typed-engine migration equivalence", () => {
   it("matches every checkpoint cell and the Phase Lance transition", async () => {
-    const ignoreWarning = () => undefined;
     const source = parseProxyFactionDocument(
       await loadJson("fixtures/meridian-compact.json"),
-      { sourceName: "meridian-compact.json", onLegacyWarning: ignoreWarning },
     );
     const target = parseProxyFactionDocument(
       await loadJson("fixtures/vesper-array.json"),
-      { sourceName: "vesper-array.json", onLegacyWarning: ignoreWarning },
     );
     const criterion = parseCoverageCriterionDocument(
       await loadJson("fixtures/coverage-criterion.json"),
-      { sourceName: "coverage-criterion.json", onLegacyWarning: ignoreWarning },
     );
     const counterDocument = parseCounterProfileDocument(
       await loadJson("fixtures/counter-profiles.json"),
-      { sourceName: "counter-profiles.json", onLegacyWarning: ignoreWarning },
     );
     const oracle = (await loadJson(
       "packages/geometry-engine/test/fixtures/vertical-slice-equivalence.json",
