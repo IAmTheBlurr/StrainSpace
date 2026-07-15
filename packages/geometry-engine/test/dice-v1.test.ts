@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import type { D6Requirement } from "@strainspace/rule-schema";
+import {
+  decodeD6Requirement,
+  encodeD6Requirement,
+  type D6Requirement,
+  type D6RequirementWire,
+} from "@strainspace/rule-schema";
 
 import {
   D6_FACES_V1,
@@ -18,6 +23,13 @@ const requirements: readonly D6Requirement[] = [
 ];
 
 describe("typed D6 requirement events", () => {
+  it("round trips every compact wire requirement", () => {
+    const wires: readonly D6RequirementWire[] = [2, 3, 4, 5, 6, "impossible"];
+    expect(
+      wires.map((wire) => encodeD6Requirement(decodeD6Requirement(wire))),
+    ).toEqual(wires);
+  });
+
   it("exhaustively maps the requirement catalog to upper-closed sets", () => {
     for (const requirement of requirements) {
       const faces = successfulD6Faces(requirement);

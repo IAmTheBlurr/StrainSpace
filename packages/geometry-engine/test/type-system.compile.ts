@@ -12,6 +12,9 @@ import type {
 
 import { analyzePowerResilience } from "../src/power-resilience.js";
 
+// @ts-expect-error Pair coordinates are relation-specific; no generic API exists.
+import { representPair } from "../src/index.js";
+
 function compileTimeContracts(
   power: Power,
   resilience: Resilience,
@@ -50,3 +53,4 @@ function compileTimeContracts(
 }
 
 void compileTimeContracts;
+void representPair;

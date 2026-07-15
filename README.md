@@ -14,7 +14,7 @@ Produce one polished vertical slice:
 4. Display a coverage matrix.
 5. Identify absolute and efficiency holes.
 6. Show one counterfactual change which closes a hole.
-7. Use GPT-5.6 for constrained rule compilation and evidence-grounded explanation.
+7. Reserve constrained rule compilation and evidence-grounded explanation for a later milestone; no model integration is part of the mathematical type-system milestone.
 
 ## Repository status
 
@@ -97,13 +97,13 @@ corepack pnpm@11.13.0 check
 
 ## Implemented workspace
 
-- `packages/rule-schema`: strict runtime schemas and JSON Schema export
-- `packages/geometry-engine`: pure pair, D6, effect, coverage, hole, and counterfactual operators
+- `packages/rule-schema`: strict versioned wire schemas, semantic quantity brands, and JSON Schema export
+- `packages/geometry-engine`: pure relation-specific pair, exact D6, effect, coverage, hole, and narrow counterfactual operators
 - `packages/explanation-engine`: reserved model boundary with no integration yet
 - `apps/web`: local interactive vertical slice
 - `fixtures`: independently authored generic force data and one counter-profile
 
-The implemented mathematical contract and assumptions live in `docs/product/IMPLEMENTED_MATHEMATICS.md`.
+The implemented mathematical contract and assumptions live in `docs/product/IMPLEMENTED_MATHEMATICS.md`; the type-system decision record is `docs/product/MATHEMATICAL_TYPE_SYSTEM.md`.
 
 ## License status
 

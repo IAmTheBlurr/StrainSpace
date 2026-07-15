@@ -92,8 +92,9 @@ describe("power-resilience-v1", () => {
         fc.integer({ min: 1, max: 100 }),
         fc.integer({ min: 1, max: 100 }),
         fc.integer({ min: 1, max: 100 }),
+        fc.integer({ min: 1, max: 100 }),
         fc.integer({ min: 1, max: 20 }),
-        (a, b, resilience, scale) => {
+        (a, b, power, resilience, scale) => {
           const lower = Math.min(a, b);
           const higher = Math.max(a, b);
           const lowerRelation = relation(lower, resilience);
@@ -103,6 +104,9 @@ describe("power-resilience-v1", () => {
               ? value.requirement.minimumSuccessfulFace
               : 7;
           expect(face(higherRelation)).toBeLessThanOrEqual(face(lowerRelation));
+          expect(face(relation(power, higher))).toBeGreaterThanOrEqual(
+            face(relation(power, lower)),
+          );
           expect(face(relation(a * scale, resilience * scale))).toBe(
             face(relation(a, resilience)),
           );

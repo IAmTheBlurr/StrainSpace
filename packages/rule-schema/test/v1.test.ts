@@ -57,6 +57,49 @@ describe("schema v1 mathematical domains", () => {
     ).not.toThrow();
   });
 
+  it("rejects unsupported versions and unknown public fields", () => {
+    expect(() =>
+      ProxyFactionDocumentV1WireSchema.parse({
+        ...v1Faction,
+        schemaVersion: "2.0.0",
+      }),
+    ).toThrow();
+    expect(() =>
+      ProxyFactionDocumentV1WireSchema.parse({
+        ...v1Faction,
+        unexpected: true,
+      }),
+    ).toThrow();
+  });
+
+  it("rejects epistemic estimate objects in deterministic fixture fields", () => {
+    const entity = v1Faction.entities[0];
+    const attack = entity?.attackProfiles[0];
+    expect(entity).toBeDefined();
+    expect(attack).toBeDefined();
+    if (entity === undefined || attack === undefined) return;
+    expect(() =>
+      ProxyFactionDocumentV1WireSchema.parse({
+        ...v1Faction,
+        entities: [
+          {
+            ...entity,
+            attackProfiles: [
+              {
+                ...attack,
+                power: {
+                  kind: "epistemic-estimate",
+                  estimate: attack.power,
+                  basis: "unsupported test estimate",
+                },
+              },
+            ],
+          },
+        ],
+      }),
+    ).toThrow();
+  });
+
   it("uses compact D6 wire requirements with explicit impossibility", () => {
     expect(D6RequirementWireSchema.parse("impossible")).toBe("impossible");
     expect(() => D6RequirementWireSchema.parse(7)).toThrow();

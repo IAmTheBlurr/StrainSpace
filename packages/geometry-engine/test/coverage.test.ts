@@ -10,10 +10,12 @@ import {
 } from "@strainspace/rule-schema";
 
 import {
-  compareCounterProfileV1,
   buildCoverageMatrixV1,
+  compareCounterProfileV1,
   detectAbsoluteHolesV1,
+  detectEfficiencyHolesV1,
 } from "../src/coverage-v1.js";
+import { asDamagePerCost, makeExactRational } from "../src/rational-v1.js";
 
 async function loadJson(path: string): Promise<unknown> {
   return JSON.parse(
@@ -58,5 +60,30 @@ describe("coverage and absolute holes", () => {
     if (!comparison.ok) return;
     expect(comparison.value.afterHoles).toEqual([]);
     expect(comparison.value.closesHole).toBe(true);
+
+    const one = makeExactRational(1);
+    expect(one.ok).toBe(true);
+    if (!one.ok) return;
+    const efficiencyHoles = detectEfficiencyHolesV1(
+      before.value,
+      target,
+      asDamagePerCost(one.value),
+    );
+    expect(efficiencyHoles.ok).toBe(true);
+    if (!efficiencyHoles.ok) return;
+    expect(efficiencyHoles.value).toHaveLength(3);
+    expect(
+      efficiencyHoles.value.some((hole) =>
+        hole.targetEntityIds.includes("vesper-bastion-prism"),
+      ),
+    ).toBe(false);
+    expect(
+      efficiencyHoles.value.every(
+        (hole) =>
+          hole.kind === "efficiency" &&
+          "efficiencyGap" in hole &&
+          !("capabilityGap" in hole),
+      ),
+    ).toBe(true);
   });
 });

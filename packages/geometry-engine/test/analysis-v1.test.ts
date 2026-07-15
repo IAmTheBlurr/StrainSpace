@@ -3,22 +3,34 @@ import { describe, expect, it } from "vitest";
 
 import {
   FixedDamageSchema,
+  ModelCountSchema,
+  ModelHealthSchema,
+  RemovedModelCountSchema,
   type AttackProfileV1,
+  type CoverageCriterionV1,
   type DefenseProfileV1,
   parseProxyFactionDocument,
 } from "@strainspace/rule-schema";
 
-import { damagePerCost, meetsEfficiencyFloor } from "../src/coverage-v1.js";
+import {
+  analyzeAttackProfileV1,
+  damagePerCost,
+  meetsEfficiencyFloor,
+} from "../src/coverage-v1.js";
 import {
   allocateFixedDamageV1,
   checkSupportedCleanContext,
   exhaustSingleAttackSequenceV1,
+  probabilityAtLeastModelsRemovedV1,
   projectCleanSequenceV1,
 } from "../src/projection-v1.js";
 import {
   asDamagePerCost,
   asExpectedDamage,
+  asProbability,
   makeExactRational,
+  scaleExact,
+  sumExact,
 } from "../src/rational-v1.js";
 
 const faction = parseProxyFactionDocument({
@@ -92,6 +104,29 @@ describe("clean-engine support refinement", () => {
     });
   });
 
+  it("uses checked arithmetic rather than fixture limits for model populations", () => {
+    const largeValidDefense: DefenseProfileV1 = {
+      ...entity.defense,
+      health: ModelHealthSchema.parse(1),
+      modelCount: ModelCountSchema.parse(Number.MAX_SAFE_INTEGER),
+    };
+    expect(checkSupportedCleanContext(attack, largeValidDefense)).toMatchObject(
+      {
+        ok: true,
+      },
+    );
+    const unsupportedArithmetic: DefenseProfileV1 = {
+      ...largeValidDefense,
+      health: ModelHealthSchema.parse(2),
+    };
+    expect(
+      checkSupportedCleanContext(attack, unsupportedArithmetic),
+    ).toMatchObject({
+      ok: false,
+      error: { kind: "unsupported-computation-range" },
+    });
+  });
+
   it("matches exhaustive enumeration for a supported clean profile", () => {
     const projection = exact(projectCleanSequenceV1(attack, entity.defense));
     const exhaustive = exact(
@@ -102,6 +137,7 @@ describe("clean-engine support refinement", () => {
         makeExactRational(exhaustive.successfulPaths, exhaustive.totalPaths),
       ),
     );
+    expect(exhaustive.totalPaths).toBe(216);
   });
 });
 
@@ -131,9 +167,78 @@ describe("typed damage and efficiency", () => {
           );
           expect(allocation.modelsRemoved).toBeLessThanOrEqual(models);
           expect(allocation.appliedDamage).toBeLessThanOrEqual(health * models);
+          if (hits < 6) {
+            const next = exact(
+              allocateFixedDamageV1(
+                (hits + 1) as Parameters<typeof allocateFixedDamageV1>[0],
+                FixedDamageSchema.parse(damageValue),
+                defense,
+              ),
+            );
+            expect(next.appliedDamage).toBeGreaterThanOrEqual(
+              allocation.appliedDamage,
+            );
+            expect(next.modelsRemoved).toBeGreaterThanOrEqual(
+              allocation.modelsRemoved,
+            );
+          }
         },
       ),
     );
+  });
+
+  it("normalizes the finite distribution and derives exact expectations", () => {
+    const projection = exact(projectCleanSequenceV1(attack, entity.defense));
+    expect(
+      exact(
+        sumExact(
+          projection.effectDistribution.outcomes.map(
+            (outcome) => outcome.probability,
+          ),
+        ),
+      ),
+    ).toEqual({ numerator: 1, denominator: 1 });
+    expect(
+      asExpectedDamage(
+        exact(
+          sumExact(
+            projection.effectDistribution.outcomes.map((outcome) =>
+              exact(scaleExact(outcome.probability, outcome.appliedDamage)),
+            ),
+          ),
+        ),
+      ),
+    ).toEqual(projection.effectDistribution.expectedAppliedDamage);
+  });
+
+  it("treats exact equality as meeting the coverage boundary", () => {
+    const projection = exact(projectCleanSequenceV1(attack, entity.defense));
+    const capability = exact(
+      probabilityAtLeastModelsRemovedV1(
+        projection.effectDistribution,
+        RemovedModelCountSchema.parse(1),
+      ),
+    );
+    const criterion: CoverageCriterionV1 = {
+      schemaVersion: "1.0.0",
+      criterionId: "exact-boundary",
+      displayName: "Exact boundary",
+      metric: "probability-at-least-models-removed",
+      minimumModelsRemoved: RemovedModelCountSchema.parse(1),
+      threshold: capability,
+      assumptions: ["test-exact-boundary"],
+    };
+    expect(
+      exact(analyzeAttackProfileV1(entity, attack, entity, criterion)).covered,
+    ).toBe(true);
+    expect(
+      exact(
+        analyzeAttackProfileV1(entity, attack, entity, {
+          ...criterion,
+          threshold: asProbability(exact(makeExactRational(1))),
+        }),
+      ).covered,
+    ).toBe(false);
   });
 
   it("compares exact efficiency without decimal rounding", () => {

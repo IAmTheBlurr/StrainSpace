@@ -16,6 +16,22 @@ An attack count is any positive safe integer. The clean repeated-attack operator
 
 The same discipline applies to model count, mobility, cost, damage, health, power, resilience, and exact rational serialization. Property-test generator bounds and current fixture ranges are not domain constraints.
 
+| Quantity              | Intrinsic mathematical domain         | Current fixture range          | Current operator or representation support                       |
+| --------------------- | ------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| `AttackCount`         | positive safe integer                 | `3..6`                         | clean repetition `1..6`                                          |
+| `ModelCount`          | positive safe integer                 | `1..3`                         | checked allocation products must remain safe                     |
+| `MobilityDistance`    | nonnegative safe integer              | `4..10`                        | no current operator                                              |
+| `ResourceCost`        | positive safe integer                 | `70..195`                      | exact rate must fit v1 rational representation                   |
+| `FixedDamage`         | positive safe integer                 | `2..5`                         | checked allocation products must remain safe                     |
+| `ModelHealth`         | positive safe integer                 | `2..6`                         | checked allocation products must remain safe                     |
+| `Power`               | positive safe integer                 | `5..20` including Phase Lance  | exact relation construction and comparison must be representable |
+| `Resilience`          | positive safe integer                 | `4..10`                        | exact relation construction and comparison must be representable |
+| `ControlContribution` | nonnegative safe integer              | `2..5`                         | no current operator                                              |
+| Exact rational        | any rational with nonzero denominator | current results fit safe pairs | canonical safe-integer numerator/denominator v1 record           |
+| D6 requirement        | `2..6` plus impossibility             | `2..5`                         | complete compact catalog                                         |
+
+Generated damage and health ranges such as `1..10` are test-sampling choices only.
+
 ## Quantity kinds
 
 The deterministic core uses distinct branded runtime types for:
@@ -60,7 +76,7 @@ type D6Requirement =
 
 An ordinary requirement maps to its upper-closed successful-face set. `"impossible"` maps to the empty set. Requirements are ordinal boundaries, not ratio-scale magnitudes.
 
-The legacy numeric sentinel `7` is accepted only by a temporary migration adapter and is rejected after this milestone closes.
+The legacy numeric sentinel `7` and every unversioned fixture document are rejected. The one-milestone migration adapter was removed before closure.
 
 ## Exactness
 
@@ -88,11 +104,19 @@ Schema versioning applies to faction, counter-profile, coverage-criterion, and t
 
 ## Non-goals
 
-- generic dimensional analysis
-- user-defined executable quantities or relations
-- symbolic algebra or general unit conversion
-- analysis caching, hashing, or derivation graphs
-- epistemic uncertainty propagation
-- visualization redesign or GPT integration
-- databases, authentication, deployment, movement, terrain, deployment state, or victory-point modeling
-- generalized counterfactual search
+- no generic dimensional-analysis framework
+- no user-defined executable quantities
+- no user-defined executable relations
+- no generalized symbolic algebra
+- no generalized unit-conversion engine
+- no analysis-cache or digest system
+- no generalized analysis envelope or derivation graph
+- no epistemic uncertainty propagation
+- no interval or Bayesian uncertainty machinery
+- no visualization redesign or Three.js Projection Chamber
+- no GPT integration
+- no deployment work
+- no database or authentication
+- no movement, terrain, deployment, or victory-point modeling
+- no generalized counterfactual framework or search language
+- no persistence format for intermediate runtime calculations
