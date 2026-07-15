@@ -153,6 +153,57 @@ export function multiplyExact(
   );
 }
 
+export function divideExact(
+  dividend: ExactRational,
+  divisor: ExactRational,
+): DomainResult<ExactRational> {
+  if (divisor.numerator === 0) {
+    return {
+      ok: false,
+      error: {
+        kind: "invalid-domain-value",
+        quantityKind: "exact-rational",
+        message: "Division by zero is undefined.",
+      },
+    };
+  }
+  return makeExactRational(
+    BigInt(dividend.numerator) * BigInt(divisor.denominator),
+    BigInt(dividend.denominator) * BigInt(divisor.numerator),
+  );
+}
+
+export function powerExact(
+  value: ExactRational,
+  exponent: number,
+): DomainResult<ExactRational> {
+  if (!Number.isSafeInteger(exponent) || exponent < 0) {
+    return {
+      ok: false,
+      error: {
+        kind: "invalid-domain-value",
+        quantityKind: "exact-rational-exponent",
+        message: "An exact exponent must be a nonnegative safe integer.",
+      },
+    };
+  }
+  return makeExactRational(
+    BigInt(value.numerator) ** BigInt(exponent),
+    BigInt(value.denominator) ** BigInt(exponent),
+  );
+}
+
+export function sumExact(
+  values: readonly ExactRational[],
+): DomainResult<ExactRational> {
+  let totalResult = makeExactRational(0);
+  for (const value of values) {
+    if (!totalResult.ok) return totalResult;
+    totalResult = addExact(totalResult.value, value);
+  }
+  return totalResult;
+}
+
 export function scaleExact(
   value: ExactRational,
   factor: number | bigint,

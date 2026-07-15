@@ -103,6 +103,16 @@ export interface EpistemicEstimate<Q> {
   readonly basis: string;
 }
 
+export interface ExactWeightedOutcome<O> {
+  readonly outcome: O;
+  readonly probability: Probability;
+}
+
+export interface ExactFiniteDistribution<O> {
+  readonly kind: "exact-finite-distribution";
+  readonly outcomes: readonly ExactWeightedOutcome<O>[];
+}
+
 export const D6OrdinaryRequirementWireSchema = z.union([
   z.literal(2),
   z.literal(3),
