@@ -1,0 +1,122 @@
+{
+  "project": "StrainSpace repository bootstrap",
+  "version": "0.2.1",
+  "created": "2026-07-14",
+  "files": [
+    {
+      "file": ".editorconfig",
+      "bytes": 188,
+      "sha256": "a6b98ea7cb6d61ed8d430dd0dffa46c87012b5cf859d4ce7207898954951fdcd"
+    },
+    {
+      "file": ".gitignore",
+      "bytes": 197,
+      "sha256": "06ff1bcf685e07bdf129001bc6fecc1422edf0be009e428973fe3147d8153570"
+    },
+    {
+      "file": "AGENTS.md",
+      "bytes": 4025,
+      "sha256": "a2a4b1591929a97dc739546c683c71d7f0c9156a26a8e1dcedd7795a42b613bf"
+    },
+    {
+      "file": "CODEX_INITIAL_PROMPT.md",
+      "bytes": 4219,
+      "sha256": "407c0bad494746736858164f95db89c73dc8838b1a12e074709dcdfb0d5e06a3"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 610,
+      "sha256": "e445dd9397be0154bbd367f4bbee37bc45aac1bec132da2dba46f1c9201b5b59"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2610,
+      "sha256": "b557e6da762a75b2628ebe7181bd4d7dc0ad85ce41924719c75f8c95f2aaf9fb"
+    },
+    {
+      "file": "docs/data/DATASET_SCHEMA.md",
+      "bytes": 2296,
+      "sha256": "84694ba3faf521d69b2f5cbf637e65cf84751f42e77b950cd04d6b480a389173"
+    },
+    {
+      "file": "docs/data/FIXTURE_DATA_POLICY.md",
+      "bytes": 3914,
+      "sha256": "a27d63ceae103f95f84f36bc6d257b11715d962003dc730b8f26d625c67750e9"
+    },
+    {
+      "file": "docs/data/PROXY_NAMING_POLICY.md",
+      "bytes": 1402,
+      "sha256": "eb196356fca7746630327a0018fb5ab3dc78beaf05e1c36dd0c9deca62b3e6e5"
+    },
+    {
+      "file": "docs/hackathon/BUILD_WEEK_CHECKLIST.md",
+      "bytes": 1519,
+      "sha256": "a41dfa4bc06df5f9a12119d5ef086e1e91247adcaa7c3a27c11d46bebb57fe9e"
+    },
+    {
+      "file": "docs/hackathon/CODEX_WORKFLOW.md",
+      "bytes": 2028,
+      "sha256": "aadc1b16d8c5c565d91bec4faaf18ae445806f014b215bb7fc18604dc05a3dbf"
+    },
+    {
+      "file": "docs/hackathon/PROVENANCE_LOG.md",
+      "bytes": 737,
+      "sha256": "ddee27299ee06f0b9bf678d9f517ee6cc7d5c183a41a96de0e23a512ad396b68"
+    },
+    {
+      "file": "docs/hackathon/REPOSITORY_SETUP.md",
+      "bytes": 873,
+      "sha256": "98589e95e615d1cb48c2391cea9e48526d90f51b5c39a3d4848db82a919f2dd8"
+    },
+    {
+      "file": "docs/handoff/README.md",
+      "bytes": 1229,
+      "sha256": "db8b0b12ccc1f08b093f31bf2a350d943806a1c9f588e1ee5334a17874fa5450"
+    },
+    {
+      "file": "docs/product/ARCHITECTURE_DECISIONS.md",
+      "bytes": 1692,
+      "sha256": "269a046f136278065372e210aea153fd2e69362c4958cbb2ba41d00e178be565"
+    },
+    {
+      "file": "docs/product/DEMO_SCRIPT.md",
+      "bytes": 1778,
+      "sha256": "014b7c40dec90354183c1753519656c7650ea75b66b6e8d3a11fca73a925bd63"
+    },
+    {
+      "file": "docs/product/DEVELOPMENT_PATH.md",
+      "bytes": 3107,
+      "sha256": "4b741720c675a56f7ba8e07c26433dbb5b401570d32000dfd33466beb0808b2f"
+    },
+    {
+      "file": "docs/product/MVP_SCOPE.md",
+      "bytes": 2314,
+      "sha256": "401f74bca84c2d309741f3f9e935c47aaeaee85780ed54a6039ae834c976a740"
+    },
+    {
+      "file": "docs/product/PRODUCT_BRIEF.md",
+      "bytes": 2236,
+      "sha256": "92cc3b982d0596a9e6e083cbdaaa47d64f25cdf93a1346623e599789a32c747c"
+    },
+    {
+      "file": "docs/product/SUCCESS_METRICS.md",
+      "bytes": 1260,
+      "sha256": "d42ca7c4af4e9572f7ba1d64013665b2901bb411c65a97f1ec707ad6c4f0cc5f"
+    },
+    {
+      "file": "docs/research/HYPOTHESIS_REGISTER.md",
+      "bytes": 2249,
+      "sha256": "a8799f983838bbaf6be99f2d503cd3a25a87fb638850f044fda2010d5d789f23"
+    },
+    {
+      "file": "docs/research/MATHEMATICAL_CORRECTIONS.md",
+      "bytes": 1985,
+      "sha256": "c3add4272c1de0d6376c2c539c3804c7474717658fbebc965812c0cd18721a0e"
+    },
+    {
+      "file": "docs/research/RESEARCH_INDEX.md",
+      "bytes": 1239,
+      "sha256": "bd7dad16664724037231b2b4693858c9c4120e418c627524d21168e457ed6850"
+    }
+  ]
+}
