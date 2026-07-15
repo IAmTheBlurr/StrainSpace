@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+import {
+  CounterProfileDocumentV1WireSchema,
+  CoverageCriterionDocumentV1WireSchema,
+  ProxyFactionDocumentV1WireSchema,
+  ThresholdMapDocumentV1WireSchema,
+} from "./v1.js";
+
 const identifier = z
   .string()
   .min(1)
@@ -294,6 +301,10 @@ export const exportableSchemas = {
   scalarValue: ScalarValueSchema,
   strainSpaceDataset: StrainSpaceDatasetSchema,
   thresholdMap: ThresholdMapSchema,
+  counterProfileDocumentV1: CounterProfileDocumentV1WireSchema,
+  coverageCriterionDocumentV1: CoverageCriterionDocumentV1WireSchema,
+  proxyFactionDocumentV1: ProxyFactionDocumentV1WireSchema,
+  thresholdMapDocumentV1: ThresholdMapDocumentV1WireSchema,
 } as const;
 
 export function exportJsonSchemas(): Record<string, unknown> {
@@ -308,3 +319,5 @@ export function exportJsonSchemas(): Record<string, unknown> {
     ),
   };
 }
+
+export * from "./v1.js";
