@@ -504,6 +504,10 @@ export const ThresholdMapDocumentV1WireSchema = z
   })
   .strict();
 
+export type ThresholdMapDocumentV1 = z.infer<
+  typeof ThresholdMapDocumentV1WireSchema
+>;
+
 type LegacyD6Threshold = 2 | 3 | 4 | 5 | 6 | 7;
 const LegacyD6ThresholdSchema = z.union([
   z.literal(2),

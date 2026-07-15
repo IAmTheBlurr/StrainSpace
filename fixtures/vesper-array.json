@@ -1,4 +1,5 @@
 {
+  "schemaVersion": "1.0.0",
   "factionId": "vesper-array",
   "displayName": "Vesper Array",
   "description": "A layered proxy force spanning light nodes through one deliberately resistant apex profile.",
@@ -11,7 +12,7 @@
       "control": 3,
       "defense": {
         "resilience": 4,
-        "protectionThreshold": 5,
+        "protectionRequirement": 5,
         "health": 2,
         "modelCount": 3
       },
@@ -20,7 +21,7 @@
           "id": "vesper-scatter-thread",
           "displayName": "Scatter Thread",
           "count": 6,
-          "accuracyThreshold": 4,
+          "accuracyRequirement": 4,
           "power": 5,
           "penetration": 1,
           "damage": 2,
@@ -38,7 +39,7 @@
       "control": 2,
       "defense": {
         "resilience": 6,
-        "protectionThreshold": 4,
+        "protectionRequirement": 4,
         "health": 3,
         "modelCount": 2
       },
@@ -47,7 +48,7 @@
           "id": "vesper-resonance-beam",
           "displayName": "Resonance Beam",
           "count": 4,
-          "accuracyThreshold": 3,
+          "accuracyRequirement": 3,
           "power": 7,
           "penetration": 2,
           "damage": 3,
@@ -65,7 +66,7 @@
       "control": 4,
       "defense": {
         "resilience": 8,
-        "protectionThreshold": 3,
+        "protectionRequirement": 3,
         "health": 4,
         "modelCount": 2
       },
@@ -74,7 +75,7 @@
           "id": "vesper-compression-wave",
           "displayName": "Compression Wave",
           "count": 4,
-          "accuracyThreshold": 3,
+          "accuracyRequirement": 3,
           "power": 9,
           "penetration": 2,
           "damage": 4,
@@ -92,7 +93,7 @@
       "control": 5,
       "defense": {
         "resilience": 10,
-        "protectionThreshold": 2,
+        "protectionRequirement": 2,
         "health": 5,
         "modelCount": 1
       },
@@ -101,7 +102,7 @@
           "id": "vesper-prism-impact",
           "displayName": "Prism Impact",
           "count": 3,
-          "accuracyThreshold": 3,
+          "accuracyRequirement": 3,
           "power": 12,
           "penetration": 3,
           "damage": 4,

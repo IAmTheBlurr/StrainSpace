@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 
 import {
-  BASIC_POWER_RESILIENCE_THRESHOLD_MAP,
-  projectCleanSequence,
-  rationalToNumber,
-  rationalToPercent,
+  damagePer100CostToNumber,
+  exactToNumber,
+  exactToPercent,
+  powerResilienceLogRatioView,
+  projectCleanSequenceV1,
+  type PowerResilienceRelation,
 } from "@strainspace/geometry-engine";
-import type { PairRepresentation } from "@strainspace/rule-schema";
+import type {
+  D6Requirement,
+  D6RequirementWire,
+} from "@strainspace/rule-schema";
 
 import { analyzeForces } from "./analysis.js";
 import { loadFixtureDataset, type FixtureDataset } from "./data.js";
@@ -20,18 +25,22 @@ export interface AppProps {
   readonly loader?: () => Promise<FixtureDataset>;
 }
 
-const representationLabels: Record<PairRepresentation, string> = {
-  difference: "Difference",
-  ratio: "Ratio",
-  "log-ratio": "Log ratio",
+type PairCoordinateView =
+  "indexed-difference" | "exact-ratio" | "approximate-log-ratio";
+
+const representationLabels: Record<PairCoordinateView, string> = {
+  "indexed-difference": "Indexed difference",
+  "exact-ratio": "Exact ratio",
+  "approximate-log-ratio": "Approx. log ratio",
 };
 
 export function App({ loader = loadFixtureDataset }: AppProps) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [sourceFactionId, setSourceFactionId] = useState("");
   const [targetFactionId, setTargetFactionId] = useState("");
-  const [representation, setRepresentation] =
-    useState<PairRepresentation>("log-ratio");
+  const [representation, setRepresentation] = useState<PairCoordinateView>(
+    "approximate-log-ratio",
+  );
   const [counterfactualApplied, setCounterfactualApplied] = useState(false);
   const [selectedSourceId, setSelectedSourceId] = useState("");
   const [selectedTargetId, setSelectedTargetId] = useState("");
@@ -59,7 +68,8 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
     return <ErrorState message={loadState.message} />;
   if (loadState.dataset.factions.length < 2) return <EmptyState />;
 
-  const { factions, criterion, counterProfiles } = loadState.dataset;
+  const { factions, criterion, counterProfiles, thresholdMap } =
+    loadState.dataset;
   const source =
     factions.find((faction) => faction.factionId === sourceFactionId) ??
     factions[0];
@@ -78,13 +88,14 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
   const availableCounter = counterProfiles.find(
     (candidate) => candidate.replaces.factionId === source.factionId,
   );
-  const snapshot = analyzeForces(
+  const analysis = analyzeForces(
     source,
     target,
     criterion,
-    representation,
     counterfactualApplied ? availableCounter : undefined,
   );
+  if (!analysis.ok) return <ErrorState message={analysis.error.message} />;
+  const snapshot = analysis.value;
   const fallbackCell = snapshot.matrix.cells.at(-1);
   const selectedCell =
     snapshot.matrix.cells.find(
@@ -112,18 +123,19 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
       <ErrorState message="The selected coverage cell could not be resolved." />
     );
   }
-  const projection = projectCleanSequence(
+  const projected = projectCleanSequenceV1(
     selectedProfile,
     selectedTarget.defense,
-    representation,
   );
+  if (!projected.ok) return <ErrorState message={projected.error.message} />;
+  const projection = projected.value;
   const coveredCells = snapshot.matrix.cells.filter(
     (cell) => cell.best.covered,
   ).length;
   const coveragePercent = Math.round(
     (coveredCells / snapshot.matrix.cells.length) * 100,
   );
-  const activeRegion = BASIC_POWER_RESILIENCE_THRESHOLD_MAP.regions.find(
+  const activeRegion = thresholdMap.regions.find(
     (region) =>
       region.regionId === projection.powerResilience.relation.regionId,
   );
@@ -199,7 +211,7 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
         <div className="representation-control">
           <span>Pair coordinate</span>
           <div className="segmented" role="group" aria-label="Pair coordinate">
-            {(Object.keys(representationLabels) as PairRepresentation[]).map(
+            {(Object.keys(representationLabels) as PairCoordinateView[]).map(
               (option) => (
                 <button
                   key={option}
@@ -236,16 +248,16 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
         </article>
         <article>
           <span>Coverage criterion</span>
-          <strong>{rationalToPercent(criterion.threshold)}</strong>
+          <strong>{exactToPercent(criterion.threshold)}</strong>
           <small>
             chance to remove ≥ {criterion.minimumModelsRemoved} model
           </small>
         </article>
         <article>
-          <span>Selected strain</span>
+          <span>Selected coordinate</span>
           <strong>
-            {formatStrain(
-              projection.powerResilience.relation.strain,
+            {formatRelation(
+              projection.powerResilience.relation,
               representation,
             )}
           </strong>
@@ -285,7 +297,9 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
                       <span>{entity.displayName}</span>
                       <small>
                         R{entity.defense.resilience} · P
-                        {entity.defense.protectionThreshold}+
+                        {formatRequirement(
+                          entity.defense.protectionRequirement,
+                        )}
                       </small>
                     </th>
                   ))}
@@ -312,7 +326,7 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
                           <button
                             type="button"
                             className={`matrix-cell ${cell.best.covered ? "covered" : "exposed"} ${selected ? "selected" : ""}`}
-                            aria-label={`${sourceEntity.displayName} against ${targetEntity.displayName}: ${rationalToPercent(cell.best.capability, 1)}`}
+                            aria-label={`${sourceEntity.displayName} against ${targetEntity.displayName}: ${exactToPercent(cell.best.capability, 1)}`}
                             aria-pressed={selected}
                             onClick={() => {
                               setSelectedSourceId(sourceEntity.id);
@@ -320,7 +334,7 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
                             }}
                           >
                             <strong>
-                              {rationalToPercent(cell.best.capability, 0)}
+                              {exactToPercent(cell.best.capability, 0)}
                             </strong>
                             <span>
                               {cell.best.covered ? "covered" : "holeward"}
@@ -362,8 +376,8 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
             <div className="strain-link">
               <span>{representationLabels[representation]}</span>
               <strong>
-                {formatStrain(
-                  projection.powerResilience.relation.strain,
+                {formatRelation(
+                  projection.powerResilience.relation,
                   representation,
                 )}
               </strong>
@@ -377,16 +391,19 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
             <div>
               <dt>Accuracy</dt>
               <dd>
-                {selectedProfile.accuracyThreshold}+ ·{" "}
-                {rationalToPercent(projection.accuracy.probability, 1)}
+                {formatRequirement(selectedProfile.accuracyRequirement)} ·{" "}
+                {exactToPercent(projection.accuracy.probability, 1)}
               </dd>
             </div>
             <div>
               <dt>Power / resilience</dt>
               <dd>
-                {projection.powerResilience.relation.threshold}+ ·{" "}
-                {rationalToPercent(
-                  projection.powerResilience.outcomeSpace.probability,
+                {formatRequirement(
+                  projection.powerResilience.relation.requirement,
+                )}{" "}
+                ·{" "}
+                {exactToPercent(
+                  projection.powerResilience.outcomeEvent.probability,
                   1,
                 )}
               </dd>
@@ -394,8 +411,11 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
             <div>
               <dt>Failed protection</dt>
               <dd>
-                {projection.penetrationProtection.effectiveThreshold}+ save ·{" "}
-                {rationalToPercent(
+                {formatRequirement(
+                  projection.penetrationProtection.effectiveRequirement,
+                )}{" "}
+                save ·{" "}
+                {exactToPercent(
                   projection.penetrationProtection.failedProtectionProbability,
                   1,
                 )}
@@ -404,13 +424,16 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
             <div>
               <dt>Effect per attack</dt>
               <dd>
-                {rationalToPercent(projection.singleAttackEffectProbability, 1)}
+                {exactToPercent(projection.singleAttackEffectProbability, 1)}
               </dd>
             </div>
             <div>
               <dt>Efficiency</dt>
               <dd>
-                {selectedCell.best.efficiencyPer100Cost.toFixed(2)} dmg / 100
+                {damagePer100CostToNumber(
+                  selectedCell.best.damagePerCost,
+                ).toFixed(2)}{" "}
+                dmg / 100
               </dd>
             </div>
           </dl>
@@ -425,23 +448,23 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
               <h2>Threshold region</h2>
             </div>
             <strong className="large-threshold">
-              {projection.powerResilience.relation.threshold}+
+              {formatRequirement(
+                projection.powerResilience.relation.requirement,
+              )}
             </strong>
           </div>
           <div className="threshold-track">
-            {BASIC_POWER_RESILIENCE_THRESHOLD_MAP.regions
-              .toReversed()
-              .map((region) => (
-                <div
-                  key={region.regionId}
-                  className={
-                    region.regionId === activeRegion?.regionId ? "active" : ""
-                  }
-                >
-                  <span>{region.threshold}+</span>
-                  <small>{region.label}</small>
-                </div>
-              ))}
+            {thresholdMap.regions.toReversed().map((region) => (
+              <div
+                key={region.regionId}
+                className={
+                  region.regionId === activeRegion?.regionId ? "active" : ""
+                }
+              >
+                <span>{formatRequirement(region.requirement)}</span>
+                <small>{region.label}</small>
+              </div>
+            ))}
           </div>
           <p className="math-note">
             Boundary lines are defined by the ratio P/R. The selected pair sits
@@ -457,16 +480,17 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
               <h2>Six-outcome dice space</h2>
             </div>
             <span className="fraction">
-              {projection.powerResilience.outcomeSpace.probability.numerator}/6
+              {projection.powerResilience.outcomeEvent.probability.numerator}/
+              {projection.powerResilience.outcomeEvent.probability.denominator}
             </span>
           </div>
           <div
             className="dice-row"
             aria-label="Power-resilience successful D6 faces"
           >
-            {projection.powerResilience.outcomeSpace.faces.map((face) => {
+            {projection.powerResilience.outcomeEvent.faces.map((face) => {
               const success =
-                projection.powerResilience.outcomeSpace.successfulFaces.includes(
+                projection.powerResilience.outcomeEvent.successfulFaces.includes(
                   face,
                 );
               return (
@@ -501,11 +525,11 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
                 <i>
                   <b
                     style={{
-                      width: `${Math.max(2, rationalToNumber(outcome.probability) * 100)}%`,
+                      width: `${Math.max(2, exactToNumber(outcome.probability) * 100)}%`,
                     }}
                   />
                 </i>
-                <strong>{rationalToPercent(outcome.probability, 1)}</strong>
+                <strong>{exactToPercent(outcome.probability, 1)}</strong>
               </div>
             ))}
           </div>
@@ -576,13 +600,17 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
                       <dt>Region</dt>
                       <dd>
                         R{entity?.defense.resilience} · P
-                        {entity?.defense.protectionThreshold}+ · H
-                        {entity?.defense.health}
+                        {entity === undefined
+                          ? "?"
+                          : formatRequirement(
+                              entity.defense.protectionRequirement,
+                            )}{" "}
+                        · H{entity?.defense.health}
                       </dd>
                     </div>
                     <div>
                       <dt>Gap to criterion</dt>
-                      <dd>{rationalToPercent(hole.missingCapability, 1)}</dd>
+                      <dd>{exactToPercent(hole.capabilityGap, 1)}</dd>
                     </div>
                     <div>
                       <dt>Best available</dt>
@@ -604,12 +632,26 @@ export function App({ loader = loadFixtureDataset }: AppProps) {
   );
 }
 
-function formatStrain(
-  value: number,
-  representation: PairRepresentation,
+function formatRelation(
+  relation: PowerResilienceRelation,
+  representation: PairCoordinateView,
 ): string {
-  if (representation === "ratio") return `${value.toFixed(2)}×`;
-  return `${value >= 0 ? "+" : ""}${value.toFixed(2)}`;
+  if (representation === "exact-ratio")
+    return `${relation.exactRatio.numerator}/${relation.exactRatio.denominator}`;
+  if (representation === "indexed-difference")
+    return `${relation.indexedDifference >= 0 ? "+" : ""}${relation.indexedDifference}`;
+  const approximate = powerResilienceLogRatioView(relation).value;
+  return `≈${approximate >= 0 ? "+" : ""}${approximate.toFixed(2)}`;
+}
+
+function formatRequirement(
+  requirement: D6Requirement | D6RequirementWire,
+): string {
+  if (typeof requirement === "object")
+    return requirement.kind === "impossible"
+      ? "Impossible"
+      : `${requirement.minimumSuccessfulFace}+`;
+  return requirement === "impossible" ? "Impossible" : `${requirement}+`;
 }
 
 function LoadingState() {

@@ -1,51 +1,50 @@
 import {
-  buildCoverageMatrix,
-  detectAbsoluteHoles,
-  replaceAttackProfile,
-  type CoverageMatrix,
+  buildCoverageMatrixV1,
+  detectAbsoluteHolesV1,
+  replaceAttackProfileV1,
+  type AbsoluteHoleReportV1,
+  type CoverageMatrixV1,
 } from "@strainspace/geometry-engine";
 import type {
-  CounterProfileFixture,
-  CoverageCriterion,
-  HoleReport,
-  PairRepresentation,
-  ProxyFaction,
+  CounterProfileFixtureV1,
+  CoverageCriterionV1,
+  DomainResult,
+  ProxyFactionV1,
 } from "@strainspace/rule-schema";
 
 export interface AnalysisSnapshot {
-  readonly source: ProxyFaction;
-  readonly target: ProxyFaction;
-  readonly matrix: CoverageMatrix;
-  readonly holes: readonly HoleReport[];
+  readonly source: ProxyFactionV1;
+  readonly target: ProxyFactionV1;
+  readonly matrix: CoverageMatrixV1;
+  readonly holes: readonly AbsoluteHoleReportV1[];
 }
 
 export function analyzeForces(
-  source: ProxyFaction,
-  target: ProxyFaction,
-  criterion: CoverageCriterion,
-  representation: PairRepresentation,
-  counterProfile?: CounterProfileFixture,
-): AnalysisSnapshot {
-  const activeSource =
-    counterProfile === undefined ||
-    counterProfile.replaces.factionId !== source.factionId
-      ? source
-      : replaceAttackProfile(
-          source,
-          counterProfile.replaces.entityId,
-          counterProfile.replaces.profileId,
-          counterProfile.profile,
-        );
-  const matrix = buildCoverageMatrix(
-    activeSource,
-    target,
-    criterion,
-    representation,
-  );
+  source: ProxyFactionV1,
+  target: ProxyFactionV1,
+  criterion: CoverageCriterionV1,
+  counterProfile?: CounterProfileFixtureV1,
+): DomainResult<AnalysisSnapshot> {
+  let activeSource = source;
+  if (
+    counterProfile !== undefined &&
+    counterProfile.replaces.factionId === source.factionId
+  ) {
+    const replacement = replaceAttackProfileV1(source, counterProfile);
+    if (!replacement.ok) return replacement;
+    activeSource = replacement.value;
+  }
+  const matrix = buildCoverageMatrixV1(activeSource, target, criterion);
+  if (!matrix.ok) return matrix;
+  const holes = detectAbsoluteHolesV1(matrix.value, target);
+  if (!holes.ok) return holes;
   return {
-    source: activeSource,
-    target,
-    matrix,
-    holes: detectAbsoluteHoles(matrix, target),
+    ok: true,
+    value: {
+      source: activeSource,
+      target,
+      matrix: matrix.value,
+      holes: holes.value,
+    },
   };
 }

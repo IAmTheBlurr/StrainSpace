@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "mapId": "basic-power-resilience",
+  "displayName": "Basic power-resilience threshold map",
+  "relationId": "power-resilience-v1",
+  "sourceSpace": "Positive safe-integer Power and Resilience pairs",
+  "targetSpace": "Ordinary D6 requirements from 2 through 6",
+  "operatorVersion": "1.0.0",
+  "invariantIds": [
+    "common-scaling-invariance",
+    "power-monotonicity",
+    "resilience-antitonicity",
+    "role-reassigned-duality"
+  ],
+  "regions": [
+    {
+      "regionId": "dominant",
+      "label": "At least double",
+      "minimumRatio": { "numerator": 2, "denominator": 1 },
+      "maximumRatio": null,
+      "minimumInclusive": true,
+      "maximumInclusive": false,
+      "requirement": 2
+    },
+    {
+      "regionId": "advantaged",
+      "label": "Greater than",
+      "minimumRatio": { "numerator": 1, "denominator": 1 },
+      "maximumRatio": { "numerator": 2, "denominator": 1 },
+      "minimumInclusive": false,
+      "maximumInclusive": false,
+      "requirement": 3
+    },
+    {
+      "regionId": "balanced",
+      "label": "Equal",
+      "minimumRatio": { "numerator": 1, "denominator": 1 },
+      "maximumRatio": { "numerator": 1, "denominator": 1 },
+      "minimumInclusive": true,
+      "maximumInclusive": true,
+      "requirement": 4
+    },
+    {
+      "regionId": "strained",
+      "label": "Less than",
+      "minimumRatio": { "numerator": 1, "denominator": 2 },
+      "maximumRatio": { "numerator": 1, "denominator": 1 },
+      "minimumInclusive": false,
+      "maximumInclusive": false,
+      "requirement": 5
+    },
+    {
+      "regionId": "overmatched",
+      "label": "At most half",
+      "minimumRatio": null,
+      "maximumRatio": { "numerator": 1, "denominator": 2 },
+      "minimumInclusive": false,
+      "maximumInclusive": true,
+      "requirement": 6
+    }
+  ]
+}

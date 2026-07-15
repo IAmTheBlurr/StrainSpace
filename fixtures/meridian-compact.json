@@ -1,4 +1,5 @@
 {
+  "schemaVersion": "1.0.0",
   "factionId": "meridian-compact",
   "displayName": "Meridian Compact",
   "description": "A mobile proxy force built around repeatable mid-band effects and distributed coverage.",
@@ -11,7 +12,7 @@
       "control": 2,
       "defense": {
         "resilience": 4,
-        "protectionThreshold": 5,
+        "protectionRequirement": 5,
         "health": 2,
         "modelCount": 3
       },
@@ -20,7 +21,7 @@
           "id": "meridian-arc-spray",
           "displayName": "Arc Spray",
           "count": 6,
-          "accuracyThreshold": 3,
+          "accuracyRequirement": 3,
           "power": 5,
           "penetration": 1,
           "damage": 2,
@@ -38,7 +39,7 @@
       "control": 3,
       "defense": {
         "resilience": 6,
-        "protectionThreshold": 4,
+        "protectionRequirement": 4,
         "health": 3,
         "modelCount": 2
       },
@@ -47,7 +48,7 @@
           "id": "meridian-focused-pulse",
           "displayName": "Focused Pulse",
           "count": 4,
-          "accuracyThreshold": 3,
+          "accuracyRequirement": 3,
           "power": 9,
           "penetration": 2,
           "damage": 4,
@@ -65,7 +66,7 @@
       "control": 2,
       "defense": {
         "resilience": 7,
-        "protectionThreshold": 4,
+        "protectionRequirement": 4,
         "health": 4,
         "modelCount": 1
       },
@@ -74,7 +75,7 @@
           "id": "meridian-fracture-arc",
           "displayName": "Fracture Arc",
           "count": 5,
-          "accuracyThreshold": 4,
+          "accuracyRequirement": 4,
           "power": 8,
           "penetration": 2,
           "damage": 2,
@@ -92,7 +93,7 @@
       "control": 4,
       "defense": {
         "resilience": 8,
-        "protectionThreshold": 3,
+        "protectionRequirement": 3,
         "health": 6,
         "modelCount": 1
       },
@@ -101,7 +102,7 @@
           "id": "meridian-anchor-shear",
           "displayName": "Anchor Shear",
           "count": 3,
-          "accuracyThreshold": 4,
+          "accuracyRequirement": 4,
           "power": 9,
           "penetration": 2,
           "damage": 3,
