@@ -1,0 +1,80 @@
+{
+  "generated": "2026-07-14",
+  "files": [
+    {
+      "file": "00_README_AND_HANDOFF.md",
+      "bytes": 4991,
+      "sha256": "878840f548ac0a6595000a222febca2dd2a183f1f0406a696f02ac1d0cb10b2c"
+    },
+    {
+      "file": "01_PLAIN_LANGUAGE_PRIMER.md",
+      "bytes": 8863,
+      "sha256": "8c747ba12be5a6190de8c63d93b68cfac93e320a33fceae50b8a5dc9f5103f9b"
+    },
+    {
+      "file": "02_FORMAL_MATHEMATICAL_FRAMEWORK.md",
+      "bytes": 10853,
+      "sha256": "063a653b7ed48981132850644c45aee8d2a285595d9aa0c9634ed6bc015eecca"
+    },
+    {
+      "file": "03_GLOSSARY_AND_TERM_STATUS.md",
+      "bytes": 12712,
+      "sha256": "a9c6afeb0bb89532044e1c16008199bc24916ea8a12b7f7b57f2bc6036d98f83"
+    },
+    {
+      "file": "04_PAIR_GEOMETRY_AND_DICE_PROJECTIONS.md",
+      "bytes": 7182,
+      "sha256": "f04ae54054ce04e7e39260d9836409fe46697187a04ae59e05317b0854a81660"
+    },
+    {
+      "file": "05_LIST_BOARD_AND_VP_GEOMETRY.md",
+      "bytes": 7021,
+      "sha256": "370d77cc6d6bf90d3dd8e5356b42070b34d9be0bb693b21319727d317aa1970b"
+    },
+    {
+      "file": "06_FALSIFIABLE_HYPOTHESES_AND_TESTS.md",
+      "bytes": 10257,
+      "sha256": "76ad0d4c788ed830b4c27cf4a57339a1ed6e0dad6068e65f15cf8838e0776b4b"
+    },
+    {
+      "file": "07_COMPUTATIONAL_ARCHITECTURE.md",
+      "bytes": 8649,
+      "sha256": "1fe80f2ce6bef2abae6e38d13bf111d6e85199cf39ab4dc7d9265b74a2f0b0be"
+    },
+    {
+      "file": "08_POST_GAME_DIAGNOSIS_AND_LIST_HOLES.md",
+      "bytes": 6870,
+      "sha256": "ff5e01de30d81ab32dfe3a760d08ba4315400ea82feca12b6af2e561f2a5c1dd"
+    },
+    {
+      "file": "09_RESEARCH_ROADMAP_AND_OPEN_QUESTIONS.md",
+      "bytes": 7427,
+      "sha256": "ffd71618662f6fe950c30704464d78bdb3653f20078d689155958c79414a9bdc"
+    },
+    {
+      "file": "10_LLM_CONTINUATION_CONTEXT.md",
+      "bytes": 4728,
+      "sha256": "62f2d13b860d7587517ec30d462a199c9464431cfd20fb00f7d3016fc804b63c"
+    },
+    {
+      "file": "11_REFERENCES_AND_RULES_ASSUMPTIONS.md",
+      "bytes": 4165,
+      "sha256": "90347e978563a9e969bab03d51e5f82d2d3eea83e7deeb1a4a3a7db584e131ee"
+    },
+    {
+      "file": "Warhammer_Generative_Geometry_FULL.md",
+      "bytes": 91650,
+      "sha256": "533caaf524b71ae5b9187d36c278c1811271baa07913b545b29e9e0c1787fa2c"
+    },
+    {
+      "file": "formal_model_schema.yaml",
+      "bytes": 1471,
+      "sha256": "82d229b9dae84b2d6d59151c9be83be167b2215232b53ffe2116bdf6c75f339f"
+    },
+    {
+      "file": "warhammer_geometry_glossary.json",
+      "bytes": 3834,
+      "sha256": "52f424e064951a5898bd6ee9cc8d5ecc42be367bd079d43ac8178e6bc30948ee"
+    }
+  ]
+}

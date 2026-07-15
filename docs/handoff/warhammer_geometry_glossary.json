@@ -1,0 +1,111 @@
+{
+  "project": "Warhammer Generative Geometry",
+  "version": "0.1.0",
+  "terms": [
+    {
+      "term": "Abstract List Geometry",
+      "status": "custom",
+      "definition": "A context-dependent relational representation of a complete army list before board placement."
+    },
+    {
+      "term": "Action Funnel",
+      "status": "custom",
+      "definition": "A narrowed set of competitive legal actions under a chosen value and risk model."
+    },
+    {
+      "term": "Board-State Geometry",
+      "status": "custom_adapted",
+      "definition": "Spatial, topological, graph, and combinatorial structure of a concrete board state."
+    },
+    {
+      "term": "Dice Space",
+      "status": "adapted",
+      "definition": "Finite sample space of dice outcomes with a probability measure and rule-defined transformations."
+    },
+    {
+      "term": "Geometric Hole",
+      "status": "custom",
+      "definition": "A context region where list capability falls below a defined threshold."
+    },
+    {
+      "term": "Inverse Generative Scaffold",
+      "status": "custom",
+      "definition": "A hidden structural model recovered from sparse measurements and used to generate a larger geometry."
+    },
+    {
+      "term": "List-to-Board Fiber Evolution",
+      "status": "custom",
+      "definition": "Intuitive label for context-indexed board trajectories generated from fixed list and mission parameters."
+    },
+    {
+      "term": "Operator Graph",
+      "status": "custom_adapted",
+      "definition": "Directed graph linking values, events, state fields, and rule operators."
+    },
+    {
+      "term": "Outcome Shadow",
+      "status": "custom",
+      "definition": "Low-dimensional observable produced by projection from a richer state or history."
+    },
+    {
+      "term": "Pair Strain",
+      "status": "custom",
+      "definition": "Log-ratio coordinate sigma(a,b)=log(a/b) for positive paired values."
+    },
+    {
+      "term": "Projection Stack",
+      "status": "custom",
+      "definition": "Sequence of maps from rules and values through dice, transitions, histories, and outcomes."
+    },
+    {
+      "term": "Relational Typing",
+      "status": "custom",
+      "definition": "Assignment of a value role based on operator behavior with another value in context."
+    },
+    {
+      "term": "Scoring Envelope",
+      "status": "custom",
+      "definition": "Boundary or support representation for reachable or probable VP outcomes."
+    },
+    {
+      "term": "Sparse Identifiable Coordinates",
+      "status": "custom_established_components",
+      "definition": "Compact coordinates which permit reconstruction and remain distinguishable under a model."
+    },
+    {
+      "term": "VP Space",
+      "status": "custom_adapted",
+      "definition": "Two-dimensional space of score pairs (VP_A, VP_B)."
+    },
+    {
+      "term": "VP Strain",
+      "status": "custom",
+      "definition": "Observed or projected score-advantage coordinate, often VP_A minus VP_B."
+    },
+    {
+      "term": "Fiber Bundle",
+      "status": "established",
+      "definition": "A total space locally equivalent to a product of a base neighborhood and typical fiber."
+    },
+    {
+      "term": "Indexed Family of Spaces",
+      "status": "established",
+      "definition": "Assignment of one space to each context point."
+    },
+    {
+      "term": "Quantizer",
+      "status": "established",
+      "definition": "Map from a fine input domain into a smaller set of discrete output bins."
+    },
+    {
+      "term": "Separability",
+      "status": "established",
+      "definition": "Ability to factor a function, measure, or optimization into simpler components."
+    },
+    {
+      "term": "Stratified Space",
+      "status": "established",
+      "definition": "Space decomposed into pieces with regular local structure."
+    }
+  ]
+}

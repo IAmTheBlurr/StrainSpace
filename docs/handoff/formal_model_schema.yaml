@@ -1,0 +1,34 @@
+project: Warhammer Generative Geometry
+version: 0.1.0
+objects:
+  RulesetVersion:
+    fields: [id, edition, effective_date, sources]
+  List:
+    fields: [id, player, units, detachments, force_disposition, resources, ruleset_version]
+  Context:
+    fields: [id, list_a, list_b, mission, terrain, deployment, event_constraints, ruleset_version]
+  Value:
+    fields: [id, entity_id, name, raw, domain, modifiers, provenance]
+  Operator:
+    fields: [id, kind, inputs, outputs, preconditions, random_variables, priority, provenance]
+  State:
+    fields: [id, context_id, turn, phase, active_player, entities, resources, score, pending_effects]
+  Action:
+    fields: [id, actor, kind, parameters, legality_predicate]
+  RandomEvent:
+    fields: [id, sample_space, measure, observed_value]
+  Transition:
+    fields: [state_before, action, random_event, operators_applied, state_after]
+  History:
+    fields: [context_id, initial_state, transitions, terminal_state]
+  Projection:
+    fields: [id, source_space, target_space, method, assumptions, uncertainty]
+  Diagnostic:
+    fields: [id, history_id, kind, finding, counterfactuals, confidence, provenance]
+maps:
+  state_transition: "x_next = F_R(x, action, random_event; context)"
+  history_projection: "pi(context, history) = context"
+  vp_projection: "V(context, history) = [VP_A, VP_B]"
+  pair_strain: "sigma(a,b) = log(a/b)"
+  score_strain: "delta_vp = VP_A - VP_B"
+status_labels: [established, adapted, custom, hypothesis]
