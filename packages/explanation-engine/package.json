@@ -1,0 +1,6 @@
+{
+  "name": "@strainspace/explanation-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reserved boundary for later grounded model integration."
+}

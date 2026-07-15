@@ -1,0 +1,7 @@
+docs/handoff/
+docs/data/PROXY_NAMING_POLICY.md
+packages/rule-schema/schema/*.json
+dist/
+coverage/
+node_modules/
+pnpm-lock.yaml

@@ -1,0 +1,119 @@
+{
+  "factionId": "vesper-array",
+  "displayName": "Vesper Array",
+  "description": "A layered proxy force spanning light nodes through one deliberately resistant apex profile.",
+  "entities": [
+    {
+      "id": "vesper-filament-node",
+      "displayName": "Filament Node",
+      "cost": 70,
+      "mobility": 7,
+      "control": 3,
+      "defense": {
+        "resilience": 4,
+        "protectionThreshold": 5,
+        "health": 2,
+        "modelCount": 3
+      },
+      "attackProfiles": [
+        {
+          "id": "vesper-scatter-thread",
+          "displayName": "Scatter Thread",
+          "count": 6,
+          "accuracyThreshold": 4,
+          "power": 5,
+          "penetration": 1,
+          "damage": 2,
+          "tags": ["distributed"],
+          "operators": []
+        }
+      ],
+      "tags": ["light", "screen"]
+    },
+    {
+      "id": "vesper-echo-spindle",
+      "displayName": "Echo Spindle",
+      "cost": 105,
+      "mobility": 6,
+      "control": 2,
+      "defense": {
+        "resilience": 6,
+        "protectionThreshold": 4,
+        "health": 3,
+        "modelCount": 2
+      },
+      "attackProfiles": [
+        {
+          "id": "vesper-resonance-beam",
+          "displayName": "Resonance Beam",
+          "count": 4,
+          "accuracyThreshold": 3,
+          "power": 7,
+          "penetration": 2,
+          "damage": 3,
+          "tags": ["focused"],
+          "operators": []
+        }
+      ],
+      "tags": ["medium", "relay"]
+    },
+    {
+      "id": "vesper-null-loom",
+      "displayName": "Null Loom",
+      "cost": 145,
+      "mobility": 5,
+      "control": 4,
+      "defense": {
+        "resilience": 8,
+        "protectionThreshold": 3,
+        "health": 4,
+        "modelCount": 2
+      },
+      "attackProfiles": [
+        {
+          "id": "vesper-compression-wave",
+          "displayName": "Compression Wave",
+          "count": 4,
+          "accuracyThreshold": 3,
+          "power": 9,
+          "penetration": 2,
+          "damage": 4,
+          "tags": ["dense"],
+          "operators": []
+        }
+      ],
+      "tags": ["heavy", "control"]
+    },
+    {
+      "id": "vesper-bastion-prism",
+      "displayName": "Bastion Prism",
+      "cost": 195,
+      "mobility": 4,
+      "control": 5,
+      "defense": {
+        "resilience": 10,
+        "protectionThreshold": 2,
+        "health": 5,
+        "modelCount": 1
+      },
+      "attackProfiles": [
+        {
+          "id": "vesper-prism-impact",
+          "displayName": "Prism Impact",
+          "count": 3,
+          "accuracyThreshold": 3,
+          "power": 12,
+          "penetration": 3,
+          "damage": 4,
+          "tags": ["apex"],
+          "operators": []
+        }
+      ],
+      "tags": ["apex", "anchor"]
+    }
+  ],
+  "metadata": {
+    "fixtureVersion": "0.1.0",
+    "origin": "independently-authored-synthetic"
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "counterProfileId": "phase-lance-substitution",
+    "displayName": "Phase Lance substitution",
+    "replaces": {
+      "factionId": "meridian-compact",
+      "entityId": "meridian-anchor-engine",
+      "profileId": "meridian-anchor-shear"
+    },
+    "profile": {
+      "id": "meridian-phase-lance",
+      "displayName": "Phase Lance",
+      "count": 3,
+      "accuracyThreshold": 3,
+      "power": 20,
+      "penetration": 4,
+      "damage": 5,
+      "tags": ["counter-profile"],
+      "operators": []
+    }
+  }
+]

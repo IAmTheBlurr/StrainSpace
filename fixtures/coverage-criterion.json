@@ -1,0 +1,11 @@
+{
+  "criterionId": "reliable-removal",
+  "displayName": "Reliable single-model removal",
+  "metric": "probability-at-least-models-removed",
+  "minimumModelsRemoved": 1,
+  "threshold": { "numerator": 1, "denominator": 2 },
+  "assumptions": [
+    "One clean activation is evaluated with no range, movement, terrain, or external rule modifiers.",
+    "Coverage requires at least a one-half exact probability of removing one target model."
+  ]
+}

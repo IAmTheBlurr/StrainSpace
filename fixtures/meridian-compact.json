@@ -1,0 +1,119 @@
+{
+  "factionId": "meridian-compact",
+  "displayName": "Meridian Compact",
+  "description": "A mobile proxy force built around repeatable mid-band effects and distributed coverage.",
+  "entities": [
+    {
+      "id": "meridian-lattice-scout",
+      "displayName": "Lattice Scout",
+      "cost": 75,
+      "mobility": 8,
+      "control": 2,
+      "defense": {
+        "resilience": 4,
+        "protectionThreshold": 5,
+        "health": 2,
+        "modelCount": 3
+      },
+      "attackProfiles": [
+        {
+          "id": "meridian-arc-spray",
+          "displayName": "Arc Spray",
+          "count": 6,
+          "accuracyThreshold": 3,
+          "power": 5,
+          "penetration": 1,
+          "damage": 2,
+          "tags": ["distributed"],
+          "operators": []
+        }
+      ],
+      "tags": ["mobile", "light"]
+    },
+    {
+      "id": "meridian-vector-guard",
+      "displayName": "Vector Guard",
+      "cost": 110,
+      "mobility": 6,
+      "control": 3,
+      "defense": {
+        "resilience": 6,
+        "protectionThreshold": 4,
+        "health": 3,
+        "modelCount": 2
+      },
+      "attackProfiles": [
+        {
+          "id": "meridian-focused-pulse",
+          "displayName": "Focused Pulse",
+          "count": 4,
+          "accuracyThreshold": 3,
+          "power": 9,
+          "penetration": 2,
+          "damage": 4,
+          "tags": ["focused"],
+          "operators": []
+        }
+      ],
+      "tags": ["line", "medium"]
+    },
+    {
+      "id": "meridian-relay-skiff",
+      "displayName": "Relay Skiff",
+      "cost": 135,
+      "mobility": 10,
+      "control": 2,
+      "defense": {
+        "resilience": 7,
+        "protectionThreshold": 4,
+        "health": 4,
+        "modelCount": 1
+      },
+      "attackProfiles": [
+        {
+          "id": "meridian-fracture-arc",
+          "displayName": "Fracture Arc",
+          "count": 5,
+          "accuracyThreshold": 4,
+          "power": 8,
+          "penetration": 2,
+          "damage": 2,
+          "tags": ["mobile"],
+          "operators": []
+        }
+      ],
+      "tags": ["mobile", "support"]
+    },
+    {
+      "id": "meridian-anchor-engine",
+      "displayName": "Anchor Engine",
+      "cost": 160,
+      "mobility": 5,
+      "control": 4,
+      "defense": {
+        "resilience": 8,
+        "protectionThreshold": 3,
+        "health": 6,
+        "modelCount": 1
+      },
+      "attackProfiles": [
+        {
+          "id": "meridian-anchor-shear",
+          "displayName": "Anchor Shear",
+          "count": 3,
+          "accuracyThreshold": 4,
+          "power": 9,
+          "penetration": 2,
+          "damage": 3,
+          "tags": ["dense"],
+          "operators": []
+        }
+      ],
+      "tags": ["heavy", "anchor"]
+    }
+  ],
+  "metadata": {
+    "fixtureVersion": "0.1.0",
+    "origin": "independently-authored-synthetic"
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Human steps
 
-1. Create an empty repository named `strainspace`.
+1. Create an empty repository named `StrainSpace`.
 2. Clone it into the development drive.
 3. Copy this bootstrap bundle into the repository root.
 4. Unzip the original sixteen-file handoff into `docs/handoff/`.

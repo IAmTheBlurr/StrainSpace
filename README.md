@@ -69,6 +69,42 @@ Start with:
 
 Record every meaningful Build Week change in Git. Keep conceptual research and implementation commits separate. Update `docs/hackathon/PROVENANCE_LOG.md` after each milestone.
 
+## Local development
+
+Requirements: Node.js 24 or later and Corepack. The workspace pins pnpm 11.13.0; do not install pnpm globally.
+
+```bash
+corepack pnpm@11.13.0 install --frozen-lockfile
+corepack pnpm@11.13.0 dev
+```
+
+The local web application opens at the URL printed by Vite. The default scenario loads the Meridian Compact and Vesper Array synthetic fixtures.
+
+## Quality commands
+
+```bash
+corepack pnpm@11.13.0 format
+corepack pnpm@11.13.0 lint
+corepack pnpm@11.13.0 typecheck
+corepack pnpm@11.13.0 test:unit
+corepack pnpm@11.13.0 test:integration
+corepack pnpm@11.13.0 build
+corepack pnpm@11.13.0 fixtures:scan
+corepack pnpm@11.13.0 check
+```
+
+`corepack pnpm@11.13.0 check` runs the complete milestone gate. `corepack pnpm@11.13.0 schema:export` regenerates the tracked JSON Schema bundle at `packages/rule-schema/schema/strainspace.schema.json`.
+
+## Implemented workspace
+
+- `packages/rule-schema`: strict runtime schemas and JSON Schema export
+- `packages/geometry-engine`: pure pair, D6, effect, coverage, hole, and counterfactual operators
+- `packages/explanation-engine`: reserved model boundary with no integration yet
+- `apps/web`: local interactive vertical slice
+- `fixtures`: independently authored generic force data and one counter-profile
+
+The implemented mathematical contract and assumptions live in `docs/product/IMPLEMENTED_MATHEMATICS.md`.
+
 ## License status
 
 No open-source license has been selected. See `LICENSE` before reuse or distribution.
