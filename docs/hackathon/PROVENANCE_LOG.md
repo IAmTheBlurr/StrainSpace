@@ -84,7 +84,7 @@ Known limitations:
 
 **Date:** 2026-07-17
 
-**Commit:** Pending
+**Commit:** `0899120bfb80902bbfd7c267329afadb6eec8b9f` (`feat: publish StrainSpace spatial analysis surface`)
 
 **Primary Codex thread:** Current Build Week implementation thread
 
@@ -96,6 +96,6 @@ Known limitations:
 
 **Files changed:** `apps/web`; `.openai/hosting.json`; Sites artifact preparation; root lint/format/package configuration; lockfile; README; demo script; architecture decisions; and this provenance entry. `packages/geometry-engine`, `packages/rule-schema`, fixtures, mathematical contracts, and the archival handoff remain unchanged.
 
-**Tests and evidence:** Svelte diagnostics report zero errors and warnings; three web integration tests preserve fixture loading, safe error/empty states, and seeded-hole closure; the production static and Sites builds complete; a local Chrome preview renders WebGL without console warnings and confirms the Phase Lance counterfactual closes the seeded Bastion Prism hole; the Sites worker serves the staged HTML and derives its social-image URL from the request host; the full repository quality gate passes.
+**Tests and evidence:** Svelte diagnostics report zero errors and warnings; three web integration tests preserve fixture loading, safe error/empty states, and seeded-hole closure; the production static and Sites builds complete; a local Chrome preview renders WebGL without console warnings and confirms the Phase Lance counterfactual closes the seeded Bastion Prism hole; the Sites worker serves the staged HTML and derives its social-image URL from the request host; the full repository quality gate passes; Codex Sites version 1 deployed successfully at `https://strainspace.thewizardofgwendolyn.chatgpt.site` with owner-only access.
 
 **Known limitations:** WebGL and CSS2D rendering add client weight; the semantic companion is authoritative when WebGL is unavailable; touch-specific gestures receive browser-default orbit behavior; the visualization has no persistence, deployment, model, authentication, database, or new mathematical operators.
