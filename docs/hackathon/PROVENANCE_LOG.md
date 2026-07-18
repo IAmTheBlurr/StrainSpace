@@ -99,3 +99,23 @@ Known limitations:
 **Tests and evidence:** Svelte diagnostics report zero errors and warnings; three web integration tests preserve fixture loading, safe error/empty states, and seeded-hole closure; the production static and Sites builds complete; a local Chrome preview renders WebGL without console warnings and confirms the Phase Lance counterfactual closes the seeded Bastion Prism hole; the Sites worker serves the staged HTML and derives its social-image URL from the request host; the full repository quality gate passes; Codex Sites version 1 deployed successfully at `https://strainspace.thewizardofgwendolyn.chatgpt.site` with owner-only access.
 
 **Known limitations:** WebGL and CSS2D rendering add client weight; the semantic companion is authoritative when WebGL is unavailable; touch-specific gestures receive browser-default orbit behavior; the visualization has no persistence, deployment, model, authentication, database, or new mathematical operators.
+
+## Milestone: Web application removal
+
+**Date:** 2026-07-18
+
+**Commit:** `bf0228596ea628e89d50a534f3d4fda4fc83a1a2` (`chore: remove the StrainSpace web application`)
+
+**Primary Codex thread:** Current Build Week implementation thread
+
+**Human contribution:** Evaluated the published interface, determined that it did not represent StrainSpace's tabletop, computational-geometry, higher-dimensional, or exact-dice concepts, and directed removal of the entire web application.
+
+**Codex contribution:** Removed `apps/web`, the Codex Sites binding and artifact tooling, SvelteKit and Three.js dependencies, web-only scripts and lint/format configuration, and the obsolete demonstration script. Preserved the deterministic engines, schemas, fixtures, mathematical tests, IP scan, provenance records, and archival handoff.
+
+**GPT-5.6 runtime contribution:** None. No model integration or model-generated operator was added.
+
+**Files changed:** `apps/web`; `.openai/hosting.json`; root workspace, lint, formatting, ignore, package, and lock configuration; Sites artifact tooling; README; product decisions; demonstration script; and this provenance entry.
+
+**Tests and evidence:** pnpm 11.13.0 peer and frozen-install checks pass; format, lint, strict typecheck, and both package builds pass; 12 rule-schema and 26 geometry-engine unit/property tests pass; schema export is stable; the fixture/IP scan passes across all five public fixture documents; the archival handoff has no diff; the lockfile and active workspace configuration contain no Svelte, Three.js, `apps/web`, or `@strainspace/web` entries.
+
+**Known limitations:** StrainSpace currently has no visible product interface. The prior owner-only Sites deployment cannot be deleted through the Sites connector available to this session and requires removal through the Sites management interface.
