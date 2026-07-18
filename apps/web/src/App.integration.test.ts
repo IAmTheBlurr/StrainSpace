@@ -1,14 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { App } from "./App.js";
+import App from "./lib/App.svelte";
 import { loadFixtureDataset } from "./data.js";
 
-describe("StrainSpace vertical slice", () => {
+describe("StrainSpace three-dimensional vertical slice", () => {
   it("loads validated fixtures and closes the seeded hole through the counterfactual control", async () => {
     const user = userEvent.setup();
-    render(<App />);
+    render(App, { props: { renderScene: false } });
 
     expect(
       screen.getByText("Loading exact fixture geometry…"),
@@ -30,11 +30,12 @@ describe("StrainSpace vertical slice", () => {
   });
 
   it("renders a safe error state when validation fails", async () => {
-    render(
-      <App
-        loader={() => Promise.reject(new Error("Synthetic validation failure"))}
-      />,
-    );
+    render(App, {
+      props: {
+        renderScene: false,
+        loader: () => Promise.reject(new Error("Synthetic validation failure")),
+      },
+    });
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Synthetic validation failure",
     );
@@ -42,16 +43,16 @@ describe("StrainSpace vertical slice", () => {
 
   it("renders the explicit empty state when fewer than two fixtures exist", async () => {
     const dataset = await loadFixtureDataset();
-    render(
-      <App
-        loader={() =>
+    render(App, {
+      props: {
+        renderScene: false,
+        loader: () =>
           Promise.resolve({
             ...dataset,
             factions: dataset.factions.slice(0, 1),
-          })
-        }
-      />,
-    );
+          }),
+      },
+    });
     expect(
       await screen.findByText("Load at least two validated force fixtures."),
     ).toBeInTheDocument();

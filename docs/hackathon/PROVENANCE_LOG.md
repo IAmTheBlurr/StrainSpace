@@ -79,3 +79,23 @@ Known limitations:
 **Tests and evidence:** Compile-time brand rejection; exhaustive D6 catalog and 216-path checks; canonical rational and representation-bound tests; power-resilience boundaries, monotonicity, scaling, explicit duality, exact ratio, and approximate log tests; support/rule-context distinction; distribution normalization, expectation, allocation, conservation, coverage, exact efficiency, hole, and Phase Lance tests; strict version/field/legacy rejection; all baseline and replacement cells match the committed oracle; full local, clean-clone, and remote-parity gates are required before push.
 
 **Known limitations:** Only `power-resilience-v1`; clean independent fixed-damage profiles with at most six attacks; no executable rule operators; no uncertainty propagation; no generalized relation, dimensional, algebra, conversion, counterfactual, provenance, digest, cache, or persistence framework; no movement, terrain, deployment, victory-point, model, database, authentication, or visualization redesign work.
+
+## Milestone: Three-dimensional analysis space
+
+**Date:** 2026-07-17
+
+**Commit:** Pending
+
+**Primary Codex thread:** Current Build Week implementation thread
+
+**Human contribution:** Selected Svelte or SvelteKit with Three.js and directed that most visualization, layout, and text occupy a three-dimensional space.
+
+**Codex contribution:** Migrated only the web presentation layer to SvelteKit; created a Three.js coverage field, spatial pair projection, threshold and dice regions, effect bars, structural-hole marker, orbit and keyboard navigation, native controls, semantic fallback data, responsive HUD, and preserved loading, empty, error, selection, and counterfactual states. Added a bespoke StrainSpace social card and Cloudflare-compatible Codex Sites packaging.
+
+**GPT-5.6 runtime contribution:** None. No model integration or executable model output was added; deterministic TypeScript remains the calculator of record.
+
+**Files changed:** `apps/web`; `.openai/hosting.json`; Sites artifact preparation; root lint/format/package configuration; lockfile; README; demo script; architecture decisions; and this provenance entry. `packages/geometry-engine`, `packages/rule-schema`, fixtures, mathematical contracts, and the archival handoff remain unchanged.
+
+**Tests and evidence:** Svelte diagnostics report zero errors and warnings; three web integration tests preserve fixture loading, safe error/empty states, and seeded-hole closure; the production static and Sites builds complete; a local Chrome preview renders WebGL without console warnings and confirms the Phase Lance counterfactual closes the seeded Bastion Prism hole; the Sites worker serves the staged HTML and derives its social-image URL from the request host; the full repository quality gate passes.
+
+**Known limitations:** WebGL and CSS2D rendering add client weight; the semantic companion is authoritative when WebGL is unavailable; touch-specific gestures receive browser-default orbit behavior; the visualization has no persistence, deployment, model, authentication, database, or new mathematical operators.

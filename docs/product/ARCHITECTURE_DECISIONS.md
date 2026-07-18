@@ -135,3 +135,33 @@ Evidence:
 **Consequences:** Valid values outside a clean operator's supported range fail as unsupported computations rather than invalid domain values. Power and resilience retain fixed roles. Exact efficiency replaces floating comparison. Unsupported rule-operator contexts fail explicitly. A temporary legacy fixture adapter is removed before milestone closure.
 
 **Evidence:** `docs/product/MATHEMATICAL_TYPE_SYSTEM.md`, compile-time type tests, exact migration-equivalence oracles, and the geometry-engine property suite.
+
+## ADR-010: SvelteKit three-dimensional analysis space
+
+**Status:** Accepted
+**Date:** 2026-07-17
+
+**Decision:** Supersede the React/Vite presentation choice in ADR-008 with a SvelteKit static application whose primary analysis surface is rendered with Three.js. Represent the coverage matrix as selectable towers and place pair detail, threshold regions, the exact D6 outcome space, effect distributions, and structural-hole markers within the same navigable scene. Keep native HTML force selectors, counterfactual controls, loading/empty/error states, and a screen-reader coverage table as a small semantic companion.
+
+**Reason:** StrainSpace's central product claim is relational and geometric. A single spatial field makes the path from pair capability to threshold, finite outcomes, and holes directly inspectable while the semantic companion preserves keyboard and assistive-technology access.
+
+**Alternatives:** Preserve the two-dimensional React dashboard, use plain Svelte without application routing, or render every control and label into WebGL textures.
+
+**Consequences:** `apps/web` now depends on SvelteKit and Three.js and ships a larger client bundle. CSS2D labels are positioned by the Three.js scene but remain real text. WebGL is never authoritative: validated fixtures and deterministic package outputs are transformed into a serializable scene model, and counterfactual recomputation still runs through `geometry-engine`. No mathematical type-system, model, database, authentication, deployment, or persistence work is introduced.
+
+**Evidence:** `apps/web/src/presentation.ts`, `apps/web/src/lib/StrainSpaceScene.svelte`, the Svelte integration suite, and a local browser pass covering WebGL startup and seeded-hole closure.
+
+## ADR-011: Static SvelteKit artifact behind a Sites asset worker
+
+**Status:** Accepted
+**Date:** 2026-07-17
+
+**Decision:** Publish the prerendered SvelteKit application through Codex Sites. Stage the static application under `dist/client` and use a minimal Cloudflare-compatible worker at `dist/server/index.js` to serve the Sites asset binding and replace the social-image origin placeholder with the incoming request origin.
+
+**Reason:** The current product is a deterministic, single-route, client-side Three.js application. Static output preserves its existing architecture and requires no server state, while the thin worker satisfies the Sites deployment contract and produces correct absolute social-preview URLs without hard-coding an environment hostname.
+
+**Alternatives:** Migrate the application to the vinext starter, add a SvelteKit server adapter, or hard-code the first Sites hostname in generated HTML.
+
+**Consequences:** Sites hosting remains a presentation concern with no effect on fixture validation or mathematical operators. The worker depends only on the platform-provided `ASSETS` binding. `.openai/hosting.json` stores only the opaque Sites project identifier; source credentials and deployment artifacts remain untracked.
+
+**Evidence:** `.openai/hosting.json`, `apps/web/sites-worker.mjs`, `scripts/prepare-sites-build.ts`, the Sites artifact smoke test, and the generated Open Graph card.

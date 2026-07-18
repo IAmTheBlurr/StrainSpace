@@ -1,8 +1,9 @@
-import react from "@vitejs/plugin-react";
+import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [sveltekit()],
+  resolve: { conditions: ["browser"] },
   server: { port: 4173 },
   test: {
     environment: "jsdom",

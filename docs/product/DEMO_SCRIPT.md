@@ -4,19 +4,19 @@
 
 Two forces can look balanced in aggregate. One can still possess a hidden structural weakness.
 
-Show both proxy force summaries and one conventional aggregate score.
+Open the three-dimensional analysis space with Meridian Compact acting against Vesper Array.
 
 ## 0:20 to 0:45: Abstract list space
 
-Load Proxy Faction Alpha and Proxy Faction Beta.
+Orbit the Meridian Compact and Vesper Array coverage field.
 
-Reveal the pairwise coverage matrix. Explain each cell as one attack-defense relation rather than an isolated unit rating.
+Reveal the pairwise coverage towers. Explain each tower as one attack-defense relation rather than an isolated unit rating; height encodes exact removal capability and color shows whether the declared criterion is crossed.
 
 ## 0:45 to 1:15: Projection stack
 
 Select one weak interaction.
 
-Show:
+Follow the selected tower's spatial link through:
 
 1. power and resilience values
 2. pair strain
@@ -24,11 +24,11 @@ Show:
 4. selected D6 outcomes
 5. effect distribution
 
-Animate the projection from scalar pair to finite dice space.
+Orbit from the scalar pair through the threshold blocks and exact six-face D6 space.
 
 ## 1:15 to 1:45: Structural hole
 
-Zoom out to the matrix.
+Zoom out to the coverage field.
 
 Highlight an opposing high-resilience cluster. Show no friendly profile meeting the chosen response threshold.
 
@@ -38,15 +38,15 @@ Label the region as an absolute hole. Show the capability definition and thresho
 
 Replace one friendly profile with a candidate profile.
 
-Show the pair crossing a threshold boundary. Expand the successful D6 subset. Recompute the matrix. Show the hole closing.
+Show the pair crossing a threshold boundary. Expand the successful D6 subset. Recompute the towers. Show the structural marker switch from an open hole to a closed field.
 
-## 2:15 to 2:40: GPT-5.6 role
+## 2:15 to 2:40: Deterministic evidence
 
-Enter one generic natural-language rule.
+Open the selected-relation readout.
 
-Show GPT-5.6 compiling the rule into a constrained intermediate representation. Validate the structure. Recompute through deterministic operators.
+Point to the authoritative exact coordinate, threshold requirement, enumerated D6 faces, effect distribution, and coverage criterion.
 
-Ask for an explanation. Display a grounded statement with direct references to pair strain, threshold, probability, and hole status.
+Explain that Three.js projects computed evidence but never performs or overrides the arithmetic. Model integration remains deferred behind the reserved explanation-engine boundary.
 
 ## 2:40 to 3:00: Meaning
 
@@ -54,4 +54,4 @@ Explain the broader result:
 
 StrainSpace turns lists into relational geometry. It finds missing responses, shows why they exist, and tests minimal repairs without relying on noisy win-rate data.
 
-End on the before-and-after coverage view.
+End on the closed-field counterfactual view.

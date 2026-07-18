@@ -78,7 +78,7 @@ corepack pnpm@11.13.0 install --frozen-lockfile
 corepack pnpm@11.13.0 dev
 ```
 
-The local web application opens at the URL printed by Vite. The default scenario loads the Meridian Compact and Vesper Array synthetic fixtures.
+The local SvelteKit application opens at the URL printed by Vite. The default scenario loads the Meridian Compact and Vesper Array synthetic fixtures into an interactive Three.js analysis space. Drag to orbit, scroll to zoom, select coverage towers, and use the counterfactual control to recompute the field.
 
 ## Quality commands
 
@@ -95,12 +95,14 @@ corepack pnpm@11.13.0 check
 
 `corepack pnpm@11.13.0 check` runs the complete milestone gate. `corepack pnpm@11.13.0 schema:export` regenerates the tracked JSON Schema bundle at `packages/rule-schema/schema/strainspace.schema.json`.
 
+`corepack pnpm@11.13.0 sites:build` produces the Cloudflare-compatible artifact consumed by Codex Sites. The persisted Sites project binding lives in `.openai/hosting.json`; it contains no credential.
+
 ## Implemented workspace
 
 - `packages/rule-schema`: strict versioned wire schemas, semantic quantity brands, and JSON Schema export
 - `packages/geometry-engine`: pure relation-specific pair, exact D6, effect, coverage, hole, and narrow counterfactual operators
 - `packages/explanation-engine`: reserved model boundary with no integration yet
-- `apps/web`: local interactive vertical slice
+- `apps/web`: SvelteKit and Three.js interactive vertical slice with an accessible semantic companion
 - `fixtures`: independently authored generic force data and one counter-profile
 
 The implemented mathematical contract and assumptions live in `docs/product/IMPLEMENTED_MATHEMATICS.md`; the type-system decision record is `docs/product/MATHEMATICAL_TYPE_SYSTEM.md`.

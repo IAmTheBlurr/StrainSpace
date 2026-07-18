@@ -5,5 +5,8 @@ packages:
 allowBuilds:
   esbuild: true
 
+minimumReleaseAgeExclude:
+  - "@sveltejs/kit@2.70.0"
+
 onlyBuiltDependencies:
   - esbuild
