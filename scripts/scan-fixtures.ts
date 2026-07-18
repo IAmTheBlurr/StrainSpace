@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join } from "node:path";
 
-const roots = ["fixtures", "apps/web/src"];
+const roots = ["fixtures"];
 const forbiddenTerms = [
   "warhammer",
   "games workshop",

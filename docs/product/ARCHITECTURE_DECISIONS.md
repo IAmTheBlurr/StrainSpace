@@ -165,3 +165,18 @@ Evidence:
 **Consequences:** Sites hosting remains a presentation concern with no effect on fixture validation or mathematical operators. The worker depends only on the platform-provided `ASSETS` binding. `.openai/hosting.json` stores only the opaque Sites project identifier; source credentials and deployment artifacts remain untracked.
 
 **Evidence:** `.openai/hosting.json`, `apps/web/sites-worker.mjs`, `scripts/prepare-sites-build.ts`, the Sites artifact smoke test, and the generated Open Graph card.
+
+## ADR-012: Remove the web application and hosting integration
+
+**Status:** Accepted
+**Date:** 2026-07-18
+
+**Decision:** Remove `apps/web` in full, along with its SvelteKit, Three.js, and Codex Sites integration. Preserve the deterministic geometry and schema packages, synthetic fixtures, mathematical tests, provenance safeguards, and immutable research handoff. Do not replace the application in this change.
+
+**Reason:** The published interface did not usefully communicate StrainSpace's tabletop force-analysis concepts, higher-dimensional or computational geometry, or exact dice projections. Keeping an unrelated interface would misrepresent the product and create maintenance cost without advancing the core reasoning engine.
+
+**Alternatives:** Leave the application published, revise its copy and styling, or immediately begin another visualization implementation.
+
+**Consequences:** The repository no longer contains a product-facing UI, web integration suite, Sites artifact builder, hosting binding, or Svelte/Three dependencies. Package-level deterministic tests and builds remain the quality gate. Any future interface requires a new product specification grounded directly in the implemented mathematical operators and fixture scenarios.
+
+**Evidence:** Removal of `apps/web`, `.openai/hosting.json`, `scripts/prepare-sites-build.ts`, web-only root scripts and dependencies, and `docs/product/DEMO_SCRIPT.md`; passing package-level format, lint, typecheck, unit, build, schema, fixture/IP, and archive-integrity checks.

@@ -18,7 +18,7 @@ Produce one polished vertical slice:
 
 ## Repository status
 
-This repository begins with pre-hackathon conceptual research under `docs/handoff/` and new Build Week implementation work elsewhere.
+This repository contains pre-hackathon conceptual research under `docs/handoff/` and the deterministic Build Week implementation elsewhere. The previous web application and Codex Sites integration were removed on 2026-07-18; the repository no longer contains a product-facing UI or hosting integration.
 
 `docs/handoff/` remains an archival source. Preserve file names, checksums, and internal references. New product documents live under `docs/product/`, data governance under `docs/data/`, and hackathon records under `docs/hackathon/`.
 
@@ -31,11 +31,9 @@ This repository begins with pre-hackathon conceptual research under `docs/handof
 - High-dimensional language must map to explicit spaces, operators, metrics, or projections.
 - Scope favors a working demonstration over full game coverage.
 
-## Initial architecture target
+## Current architecture
 
 ```text
-apps/
-  web/
 packages/
   geometry-engine/
   rule-schema/
@@ -69,16 +67,14 @@ Start with:
 
 Record every meaningful Build Week change in Git. Keep conceptual research and implementation commits separate. Update `docs/hackathon/PROVENANCE_LOG.md` after each milestone.
 
-## Local development
+## Local verification
 
 Requirements: Node.js 24 or later and Corepack. The workspace pins pnpm 11.13.0; do not install pnpm globally.
 
 ```bash
 corepack pnpm@11.13.0 install --frozen-lockfile
-corepack pnpm@11.13.0 dev
+corepack pnpm@11.13.0 check
 ```
-
-The local SvelteKit application opens at the URL printed by Vite. The default scenario loads the Meridian Compact and Vesper Array synthetic fixtures into an interactive Three.js analysis space. Drag to orbit, scroll to zoom, select coverage towers, and use the counterfactual control to recompute the field.
 
 ## Quality commands
 
@@ -87,7 +83,6 @@ corepack pnpm@11.13.0 format
 corepack pnpm@11.13.0 lint
 corepack pnpm@11.13.0 typecheck
 corepack pnpm@11.13.0 test:unit
-corepack pnpm@11.13.0 test:integration
 corepack pnpm@11.13.0 build
 corepack pnpm@11.13.0 fixtures:scan
 corepack pnpm@11.13.0 check
@@ -95,14 +90,11 @@ corepack pnpm@11.13.0 check
 
 `corepack pnpm@11.13.0 check` runs the complete milestone gate. `corepack pnpm@11.13.0 schema:export` regenerates the tracked JSON Schema bundle at `packages/rule-schema/schema/strainspace.schema.json`.
 
-`corepack pnpm@11.13.0 sites:build` produces the Cloudflare-compatible artifact consumed by Codex Sites. The persisted Sites project binding lives in `.openai/hosting.json`; it contains no credential.
-
 ## Implemented workspace
 
 - `packages/rule-schema`: strict versioned wire schemas, semantic quantity brands, and JSON Schema export
 - `packages/geometry-engine`: pure relation-specific pair, exact D6, effect, coverage, hole, and narrow counterfactual operators
 - `packages/explanation-engine`: reserved model boundary with no integration yet
-- `apps/web`: SvelteKit and Three.js interactive vertical slice with an accessible semantic companion
 - `fixtures`: independently authored generic force data and one counter-profile
 
 The implemented mathematical contract and assumptions live in `docs/product/IMPLEMENTED_MATHEMATICS.md`; the type-system decision record is `docs/product/MATHEMATICAL_TYPE_SYSTEM.md`.
